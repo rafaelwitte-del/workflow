@@ -32,6 +32,8 @@ Private E-Mail an Gunnar mit Entwurf — NIE Antwort an den Verteiler
         │
         ▼   (erst nach Zustimmung per Mail-Antwort)
 Ergebnis-PNG in Drive-Ergebnis-Ordner hochladen (nur dieser eine Ordner)
+        +  alle Original-Fotos des Aktionstages zusätzlich in die passende
+           Foto-Unterordner des Design-System-Projekts übernehmen
 ```
 
 Das eigentliche Corporate Design (Farben, Logos, Maskottchen „Froach",
@@ -65,7 +67,8 @@ E-Mail-Freigabe, kein Auto-Post) stehen bereits fest im Skill
 
 - Format: **Post** oder **Story**
 - Segment: **Schule**, **Kita**, **Pflege** oder **Projektmodul** (Schule/Kita
-  = froachkids-Design, Pflege/Projektmodul = relax & froach/froachcare-Design)
+  = froachkids-Design, Pflege/Projektmodul = relax & froach-Design, **ohne**
+  eigenes „froachcare"-Logo)
 - Anlass/Titel, Datum, Ort/Einrichtung
 - Sponsor/Kostenträger — **nur nennen, wenn dessen Logo aufs Bild soll**
   (siehe Abschnitt 4 im Skill: Partner-Logos werden sonst nie automatisch
@@ -78,8 +81,12 @@ Details und der volle Ablauf stehen in
 
 ## 4. Rechtliches / Datenschutz
 
-- Der Workflow speichert **keine personenbezogenen Daten** dauerhaft in
-  diesem Repo.
+- Der Workflow speichert **keine personenbezogenen Daten in diesem Repo**.
+  Nach Gunnars Freigabe werden Original-Fotos jedoch dauerhaft an zwei
+  Stellen außerhalb des Repos abgelegt: dem Drive-Ordner „Ergebnisse" und
+  der Foto-Bibliothek des Design-System-Projekts (**alle** eingegangenen
+  Fotos des Aktionstages, nicht nur die im Post verwendeten) — deshalb ist
+  die Einwilligung vor dieser Freigabe zwingend zu klären, nicht optional.
 - Bei Fotos von **Kindern** (Kita/Schule) wird vor Erstellung nach
   Einwilligung der Erziehungsberechtigten gefragt (Recht am eigenen Bild,
   §§ 22 f. KunstUrhG; DSGVO Art. 6, ggf. Art. 8).
@@ -119,7 +126,8 @@ enthält genau zwei relevante Unterordner — lose Dateien direkt im
 Beide gliedern sich identisch in vier Segment-Unterordner: **Schule**,
 **Kita**, **Pflege**, **Projektmodul**. Design-seitig gibt es aber nur zwei
 Linien — Schule/Kita laufen unter **froachkids**, Pflege/Projektmodul unter
-**relax & froach/froachcare** (Details siehe SKILL.md Schritt 2).
+**relax & froach** — bewusst **ohne** eigenes „froachcare"-Logo (Details
+siehe SKILL.md Schritt 2).
 
 ## Konten & Connector-Autorisierung (E-Mail über anderes Konto)
 

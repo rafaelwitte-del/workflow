@@ -122,14 +122,18 @@ mischen, auch nicht bei Mehrfach-Anlässen.
 | Segment (Drive-Unterordner) | Sub-Marke | Farbwelt / Ton | Bildsprache |
 |---|---|---|---|
 | **Kita, Schule** | **froachkids** | Bunte Buchstabenfarben (Capri/Green/Mustard/Bittersweet), verspielter, wärmerer Ton | Maskottchen „Froach" (Posen/Szenen), Illustration `colorful-hands.png`, Fotos aus `froachkids fotos/` |
-| **Pflege, Projektmodul** | **relax & froach / froachcare** | Brand Blue `#044894` + froach Green `#94CE0E`, sachlich-professioneller Ton | Editorial Fotografie, arch-förmige Foto-Karten mit Navy-Overlay (`--rf-photo-overlay`), kein Maskottchen in formellen Kontexten |
+| **Pflege, Projektmodul** | **relax & froach** | Brand Blue `#044894` + froach Green `#94CE0E`, sachlich-professioneller Ton | Editorial Fotografie, arch-förmige Foto-Karten mit Navy-Overlay (`--rf-photo-overlay`), kein Maskottchen in formellen Kontexten |
 
 Der `froach`-Wortstamm bleibt immer Brand Blue; nur Tagline-Farbe/-Wort und
-Bildsprache wechseln. Nie froachkids- und froachcare-Elemente mischen. Bei
-Unsicherheit, ob ein Anlass „Projektmodul" oder „Pflege" ist: beide liegen
-auf derselben Design-Linie, daher unkritisch — bei Unsicherheit zwischen
-Kita/Schule und Pflege/Projektmodul dagegen **immer nachfragen**, da hier
-die Sub-Marke wechselt.
+Bildsprache wechseln. **Kein „froachcare"-Logo/-Bildmarke verwenden** — im
+Design-System existiert zwar ein `preview/logo-froachcare-variants.html`,
+das wird für diesen Workflow bewusst **nicht** eingesetzt; Pflege und
+Projektmodul laufen unter der normalen **relax & froach**-Wortmarke, ohne
+eigenständiges Care-Logo. Nie froachkids-Elemente mit der relax &
+froach-Linie mischen. Bei Unsicherheit, ob ein Anlass „Projektmodul" oder
+„Pflege" ist: beide liegen auf derselben Design-Linie, daher unkritisch —
+bei Unsicherheit zwischen Kita/Schule und Pflege/Projektmodul dagegen
+**immer nachfragen**, da hier die Sub-Marke wechselt.
 
 ## 3. Partner-/Kostenträger-Logo — nur auf ausdrücklichen Wunsch
 
@@ -151,9 +155,12 @@ an der Logo-Regel oben, ist aber für die Bildunterschrift/den Text relevant
 
 ## 4. Datenschutz-Check (verpflichtend, vor Erstellung)
 
-Personenbezogene Daten werden in diesem Workflow **nicht gespeichert** —
-weder Namen noch andere identifizierende Angaben landen in Dateien dieses
-Repos oder werden dauerhaft abgelegt.
+Personenbezogene Daten werden **in diesem Repo nicht gespeichert** — weder
+Namen noch andere identifizierende Angaben landen in Dateien dieses Repos.
+Nach Gunnars Freigabe (siehe Schritt 6) werden die Original-Fotos jedoch
+dauerhaft an zwei Stellen außerhalb des Repos abgelegt (Drive-Ordner
+„Ergebnisse" und Design-System-Fotobibliothek) — deshalb ist die
+Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
 
 - **Kita/Schule (Kinder):** Vor Veröffentlichung erkennbarer Kindergesichter
   muss die Einwilligung der Erziehungsberechtigten vorliegen (Recht am
@@ -201,8 +208,23 @@ Repos oder werden dauerhaft abgelegt.
    Kein Hochladen ohne diese Bestätigung.
 3. Nach Zustimmung: Ergebnis-PNG (und ggf. Caption als Textdatei) in den
    Ergebnis-Ordner (siehe 0a) hochladen — sonst nichts in Drive verändern.
-4. Eine tatsächliche Instagram-Veröffentlichung ist **nicht** Teil dieses
-   Skills — das Hochladen in den Ergebnis-Ordner ist der letzte Schritt.
+4. **Erst nach derselben Zustimmung** außerdem **alle** zu diesem Aktionstag
+   erhaltenen Original-Fotos (nicht nur die im Post verwendeten) über
+   `DesignSync` (`list_files` → `finalize_plan` → `write_files`) in den zum
+   Segment passenden Foto-Unterordner des Design-System-Projekts
+   (`044c8b4b-076a-4543-930c-a3642c12b3fe`) ablegen:
+   - Schule → `froachkids fotos/froachkids Fotos Schulaktionstage/`
+   - Kita → `froachkids fotos/froachkids Kitaaktionstage/`
+   - Pflege, Projektmodul → `froach Gesundheitstage/`
+
+   Dateinamen sprechend, aber ohne Klarnamen abgebildeter Personen benennen
+   (Einrichtung/Anlass/Kurzbeschreibung, analog zu bestehenden Dateien dort).
+   Ohne Zustimmung: **keine** Fotos ins Design-System übernehmen — dieselbe
+   Datenschutz-Logik wie beim Ergebnis-Ordner gilt hier ebenso, weil die
+   Foto-Bibliothek dauerhaft und projektübergreifend sichtbar ist.
+5. Eine tatsächliche Instagram-Veröffentlichung ist **nicht** Teil dieses
+   Skills — das Hochladen in den Ergebnis-Ordner und ins Design-System sind
+   die letzten Schritte.
 
 ## Sprache
 
