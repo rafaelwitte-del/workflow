@@ -27,6 +27,54 @@ Gedächtnis rekonstruieren, das Projekt kann sich ändern):
 Es gilt ausschließlich der Branding Guide **„New" / „2023"** (siehe README des
 Design-Systems). Ältere Guides ignorieren.
 
+## 0a. Auslöser, Zugriffsgrenzen und Freigabeweg
+
+**Eingang — externe E-Mail-Adresse, zeitgesteuert geprüft.**
+Fotos + Infos (Sponsor, Datum etc.) kommen per normaler E-Mail an eine
+**externe** Adresse — ausdrücklich **nicht** das persönliche Konto von
+Gunnar (`gunnar.reinhardt@froach.de`), sondern ein separates Postfach, an
+das mehrere Kolleg:innen schicken können.
+
+- Adresse: `<EINGANGS_ADRESSE — noch zu benennen>` (muss ein
+  Google-/Gmail-Postfach sein, damit der Gmail-Connector greift; andere
+  Mail-Anbieter werden aktuell nicht unterstützt).
+- Kein Sofort-Trigger bei Mail-Eingang möglich — stattdessen **zeitgesteuerte
+  Prüfung 2× täglich, 12:00 und 18:00 Uhr**. Bei jedem Lauf: seit dem letzten
+  Lauf neu eingegangene Mails an diese Adresse mit Foto-Anhang sichten.
+- **Explizit NICHT unterstützt:** die Chat-/Spaces-Funktion innerhalb von
+  Gmail (Google Chat). Das ist eine eigene Google-API mit eigenen
+  Berechtigungen, kein Bestandteil des Gmail-Connectors, und es existiert
+  aktuell kein separater Google-Chat-Connector. Nachrichten, die nur im
+  Chat/Spaces-Bereich landen, werden **nicht** erkannt — nur echte E-Mails
+  an die oben genannte Adresse.
+
+**Google Drive — strikt auf zwei Ordner begrenzt.**
+Zugriff ist **ausschließlich** auf genau zwei Ordner erlaubt:
+
+1. **Eingangs-Ordner** (Zwischenablage der hochgeladenen Fotos):
+   `<DRIVE_ORDNER_EINGANG — Ordner-ID/Link noch zu benennen>`
+2. **Ergebnis-Ordner** (fertige, freigegebene Posts/Stories):
+   `<DRIVE_ORDNER_ERGEBNIS — Ordner-ID/Link noch zu benennen>`
+
+Harte Regel: **Kein** Auflisten, Lesen, Schreiben oder Suchen außerhalb
+dieser zwei Ordner-IDs — kein Durchsuchen des restlichen Drives, keine
+Stichwortsuche über den gesamten Drive-Index, kein Zugriff auf andere
+Ordner „nur um kurz nachzuschauen". Falls eine Aufgabe scheinbar Zugriff
+außerhalb dieser zwei Ordner erfordert: **anhalten und Gunnar fragen**,
+statt den Rahmen zu erweitern.
+
+Zusätzlich zur reinen Verhaltensregel hier: Beim Autorisieren des
+Google-Drive-Connectors, falls ein Ordner-Picker angeboten wird, dort auch
+technisch **nur diese zwei Ordner** auswählen/freigeben — nicht "gesamtes
+Drive" autorisieren. Verhalten *und* Berechtigung sollten beide eng sein.
+
+**Freigabe — per E-Mail, privat.**
+Nach Erstellung wird der Entwurf **privat per E-Mail an Gunnar** geschickt
+(nie als Antwort an den Verteiler/die Absender-Gruppe der Eingangs-Mail).
+Erst nach ausdrücklicher Zustimmung per E-Mail-Antwort wird das Ergebnis in
+den Ergebnis-Ordner (s. o.) hochgeladen. Ohne Zustimmung: nichts hochladen,
+nichts an Dritte weitergeben.
+
 ## 1. Pflichtangaben abfragen
 
 Wenn nicht bereits mitgeliefert, folgende Angaben erfragen:
@@ -117,12 +165,17 @@ Repos oder werden dauerhaft abgelegt.
 
 ## 6. Ausgabe — niemals automatisch posten
 
-Fertiges Bild (und optionalen Caption-Text) per `SendUserFile` an den Nutzer
-schicken, **status: proactive** wenn der Workflow ohne direkte Chat-Anfrage
-(z. B. durch Ordner-Upload) ausgelöst wurde. Deutlich kennzeichnen: „Entwurf
-zur Kontrolle — noch nicht gepostet." Erst nach Freigabe des Nutzers gilt der
-Post als fertig; eine tatsächliche Instagram-Veröffentlichung ist **nicht**
-Teil dieses Skills.
+1. Fertiges Bild aus dem Eingangs-Ordner-Lauf (und optionalen
+   Caption-Text-Vorschlag) **privat per E-Mail an Gunnar** schicken — niemals
+   an den Verteiler/die Absender-Gruppe zurück. Deutlich kennzeichnen:
+   „Entwurf zur Kontrolle — noch nicht gepostet, noch nicht in Drive
+   abgelegt."
+2. Warten auf Gunnars Zustimmung **als Antwort auf genau diese Mail**.
+   Kein Hochladen ohne diese Bestätigung.
+3. Nach Zustimmung: Ergebnis-PNG (und ggf. Caption als Textdatei) in den
+   Ergebnis-Ordner (siehe 0a) hochladen — sonst nichts in Drive verändern.
+4. Eine tatsächliche Instagram-Veröffentlichung ist **nicht** Teil dieses
+   Skills — das Hochladen in den Ergebnis-Ordner ist der letzte Schritt.
 
 ## Sprache
 

@@ -16,17 +16,20 @@ zur Kontrolle, nicht zur automatischen Veröffentlichung.
 ## 1. Wie der Workflow funktioniert
 
 ```
-Auslöser (Chat-Nachricht / Ordner-Upload / externer Kanal)
+Externe E-Mail-Adresse (nicht Gunnars Konto)
+   — Fotos + Sponsor/Datum/Infos im Mailtext —
         │
-        ▼
+        ▼   (zeitgesteuerte Prüfung: 12:00 & 18:00 Uhr, kein Sofort-Trigger)
 Skill „aktionstag-post" (.claude/skills/aktionstag-post/SKILL.md)
-        │  liest Corporate Design live aus dem Claude-Design-Projekt
-        │  „relax & froach Design System"
+        │  1. Foto(s) in Drive-Eingangs-Ordner ablegen (nur dieser eine Ordner)
+        │  2. Corporate Design live aus dem Claude-Design-Projekt
+        │     „relax & froach Design System" lesen
+        │  3. Entwurf bauen: Instagram-Post oder -Story (PNG)
         ▼
-Entwurf: Instagram-Post oder -Story (PNG, passendes Format)
+Private E-Mail an Gunnar mit Entwurf — NIE Antwort an den Verteiler
         │
-        ▼
-Rückmeldung an dich zur Kontrolle — kein Auto-Post
+        ▼   (erst nach Zustimmung per Mail-Antwort)
+Ergebnis-PNG in Drive-Ergebnis-Ordner hochladen (nur dieser eine Ordner)
 ```
 
 Das eigentliche Corporate Design (Farben, Logos, Maskottchen „Froach",
@@ -36,23 +39,25 @@ Skill liest es bei jedem Lauf aktuell aus, statt es zu duplizieren.
 
 ## 2. Auslöser (Trigger) — aktueller Stand
 
-Du hattest dich für **externer Kanal (Slack/Teams/E-Mail)** entschieden.
-Ehrlicher Zwischenstand dazu, damit keine falschen Erwartungen entstehen:
+Festgelegt: Eingang über eine **externe E-Mail-Adresse** (nicht Gunnars
+eigenes Konto), geprüft **2× täglich um 12:00 und 18:00 Uhr**. Freigabe läuft
+**per E-Mail-Antwort**, danach Ablage in Google Drive — **strikt begrenzt auf
+genau zwei Ordner** (Eingang, Ergebnis), sonst nichts im Drive.
 
-| Auslöser | Status | Was noch nötig ist |
+| Baustein | Status | Was noch nötig ist |
 |---|---|---|
-| **Chat-Nachricht in einer Claude-Code-Session** | ✅ funktioniert direkt | Nichts — einfach Fotos + Infos hier reinschreiben, Skill wird automatisch erkannt. |
-| **E-Mail** | 🟡 Gmail-Connector ist im Account vorhanden, aber für diesen Chat nicht aktiviert | Connector aktivieren + einen **Trigger** in den Claude-Code-Einstellungen anlegen, der bei neuer Mail (z. B. an eine feste Adresse/mit festem Betreff) eine neue Session mit diesem Skill startet. |
-| **Slack** | ⛔ kein Connector im Account gefunden | Slack müsste erst als Connector verbunden werden, danach analog per Trigger einrichten. |
-| **Teams** | ⛔ kein Connector im Account gefunden | Aktuell kein offizieller Teams-Connector — müsste geprüft werden, ob/wie das technisch machbar ist. |
-| **Ordner-Upload (z. B. Google Drive)** | ⛔ noch nicht eingerichtet | Braucht einen Drive-Connector + einen Trigger, der auf neue Dateien in einem bestimmten Ordner reagiert. |
+| **Chat-Nachricht in einer Claude-Code-Session** | ✅ funktioniert direkt | Nichts — Fotos + Infos hier reinschreiben, Skill wird automatisch erkannt. |
+| **E-Mail-Eingang (externe Adresse)** | 🟡 Gmail-Connector im Account vorhanden, aber für diesen Chat nicht aktiviert; externe Adresse noch nicht benannt | 1) Externe Adresse festlegen (muss ein Gmail-/Google-Workspace-Postfach sein), 2) Gmail-Connector für diese Adresse autorisieren, 3) Routine mit Cron `0 12,18 * * *` einrichten. |
+| **Google Chat / Spaces** | ⛔ nicht möglich | Kein Connector vorhanden, eigene Google-API — bewusst **nicht** Teil dieses Workflows (s. Diskussion). |
+| **Google Drive (2 Ordner)** | 🟡 Connector vorhanden, nicht aktiviert; Ordner-IDs noch nicht benannt | Eingangs- und Ergebnis-Ordner benennen/verlinken, Connector idealerweise per Ordner-Picker nur auf diese zwei Ordner autorisieren. |
+| **Slack / Teams** | ⛔ verworfen zugunsten E-Mail | — |
 
 Diese Trigger-Einrichtung ist eine **Produkt-Konfiguration** (siehe
 [code.claude.com/docs/en/claude-code-on-the-web](https://code.claude.com/docs/en/claude-code-on-the-web)),
 kein Code, den ich in diesem Repo schreibe — deshalb kann ich sie nicht
-„committen". Ich helfe dir gerne beim Einrichten, sobald du sagst, mit
-welchem Kanal wir anfangen (Vorschlag: E-Mail zuerst, da der Gmail-Connector
-schon vorhanden ist).
+„committen". Die Verhaltensregeln (Zwei-Ordner-Grenze, private
+E-Mail-Freigabe, kein Auto-Post) stehen bereits fest im Skill
+(`.claude/skills/aktionstag-post/SKILL.md`, Abschnitt „0a").
 
 ## 3. Was du mitschicken solltest
 
@@ -88,15 +93,19 @@ Details und der volle Ablauf stehen in
 
 ## 5. Offene Punkte
 
-Bitte einmal bestätigen bzw. entscheiden:
+Noch konkret zu benennen, bevor der Workflow scharf geschaltet werden kann:
 
-1. Mit welchem externen Kanal fangen wir an (E-Mail über Gmail wäre am
-   schnellsten realisierbar)?
-2. Sollen fertige Bilder zusätzlich automatisch in einem bestimmten Ordner
-   abgelegt werden, oder reicht die Zusendung im Chat/per Mail?
-3. Soll ich testweise mit einem vorhandenen Foto aus dem Design-System
-   (z. B. aus `froachkids fotos/` oder `froach Gesundheitstage/`) einmal
-   einen Beispiel-Post erstellen, damit du das Layout beurteilen kannst?
+1. **Externe Eingangs-Adresse:** Welche Gmail-/Google-Workspace-Adresse
+   nutzt ihr (existiert sie schon, oder muss sie neu angelegt werden)?
+2. **Zwei Drive-Ordner:** Link/ID des Eingangs-Ordners und des
+   Ergebnis-Ordners.
+3. Beide Connectoren (Gmail für die externe Adresse, Google Drive) müssen
+   einmal für diesen Chat autorisiert werden — das kann nur du in den
+   Connector-Einstellungen tun.
+4. Soll ich testweise mit einem vorhandenen Foto aus dem Design-System
+   (z. B. aus `froachkids fotos/` oder `froach Gesundheitstage/`) schon
+   einmal einen Beispiel-Post ohne den vollen E-Mail/Drive-Kreislauf
+   erstellen, damit du das Layout beurteilen kannst?
 
 ## 6. Quellen
 
