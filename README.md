@@ -26,15 +26,22 @@ Skill „aktionstag-post" (.claude/skills/aktionstag-post/SKILL.md)
         │  1. Foto(s) in Drive-Eingangs-Ordner ablegen (nur dieser eine Ordner)
         │  2. Corporate Design live aus dem Claude-Design-Projekt
         │     „relax & froach Design System" lesen
-        │  3. Entwurf bauen: Instagram-Post oder -Story (PNG)
+        │  3. Entwurf bauen: Instagram-Post oder -Story (PNG) + Caption
         ▼
-Private E-Mail an Rafael mit Entwurf — NIE Antwort an den Verteiler
+Entwurf in Drive-Staging-Unterordner „Ergebnisse/_Entwurf zur Freigabe/"
         │
-        ▼   (erst nach Rafaels Zustimmung per Mail-Antwort)
-Ergebnis-PNG in Drive-Ergebnis-Ordner hochladen (nur dieser eine Ordner)
+        ▼   (erst nach Rafaels Drive-Kommentar „FREIGABE" auf der Datei)
+Ergebnis-PNG zusätzlich in den passenden Ergebnisse-Unterordner kopiert
         +  alle Original-Fotos des Aktionstages zusätzlich in die passende
-           Foto-Unterordner des Design-System-Projekts übernehmen
+           Foto-Unterordner des Design-System-Projekts übernommen
 ```
+
+**Hinweis zum Freigabeweg:** Der Gmail-Connector kann laut eigener
+Beschreibung nur Entwürfe anlegen, Threads zusammenfassen und das Postfach
+durchsuchen — **kein tatsächliches Versenden**. Die Freigabe läuft deshalb
+über einen **Drive-Kommentar** von Rafael auf der Entwurfsdatei (Stichwort
+„FREIGABE" = Go, „Anpassung" = noch nicht fertig, siehe SKILL.md Schritt 0a)
+— am 23.07.2026 gemeinsam getestet und bestätigt funktionsfähig.
 
 Das eigentliche Corporate Design (Farben, Logos, Maskottchen „Froach",
 Partner-Logos, Fotos) liegt **nicht** in diesem Repo, sondern bleibt
@@ -46,9 +53,11 @@ Skill liest es bei jedem Lauf aktuell aus, statt es zu duplizieren.
 Festgelegt: Eingang über eine **externe E-Mail-Adresse** (`rafael.witte@froach.de`,
 nicht Gunnars eigenes Konto), geprüft **2× täglich um 12:00 und 18:00 Uhr**,
 nur E-Mails mit passendem Betreff-Muster (s. u.). Freigabe läuft **per
-E-Mail-Antwort von Rafael** (an dieselbe Adresse geschickt), danach Ablage in
+Drive-Kommentar von Rafael** (Stichwort „FREIGABE" auf der Entwurfsdatei,
+da der Gmail-Connector nicht senden kann — s. o.), danach Ablage in
 Google Drive — **strikt begrenzt auf genau zwei Unterordner** (Eingang,
-Ergebnis), sonst nichts im Drive.
+Ergebnis) plus einen Staging-Unterordner für Entwürfe innerhalb von
+„Ergebnisse", sonst nichts im Drive.
 
 | Baustein | Status | Was noch nötig ist |
 |---|---|---|
@@ -61,8 +70,8 @@ Ergebnis), sonst nichts im Drive.
 Diese Trigger-Einrichtung ist eine **Produkt-Konfiguration** (siehe
 [code.claude.com/docs/en/claude-code-on-the-web](https://code.claude.com/docs/en/claude-code-on-the-web)),
 kein Code, den ich in diesem Repo schreibe — deshalb kann ich sie nicht
-„committen". Die Verhaltensregeln (Zwei-Ordner-Grenze, private
-E-Mail-Freigabe, kein Auto-Post) stehen bereits fest im Skill
+„committen". Die Verhaltensregeln (Zwei-Ordner-Grenze, Drive-Kommentar-
+Freigabe, kein Auto-Post) stehen bereits fest im Skill
 (`.claude/skills/aktionstag-post/SKILL.md`, Abschnitt „0a").
 
 ## 3. Was du mitschicken solltest
@@ -137,6 +146,13 @@ Beide gliedern sich identisch in vier Segment-Unterordner: **Schule**,
 Linien — Schule/Kita laufen unter **froachkids**, Pflege/Projektmodul unter
 **relax & froach** — bewusst **ohne** eigenes „froachcare"-Logo (Details
 siehe SKILL.md Schritt 2).
+
+Innerhalb von „Ergebnisse" gibt es zusätzlich einen Staging-Unterordner
+`_Entwurf zur Freigabe/`, in dem unfertige Entwürfe bis zu Rafaels
+„FREIGABE"-Kommentar liegen. Bekannte Einschränkung: Ich kann Drive-Dateien
+nur **kopieren**, nicht verschieben oder löschen — freigegebene Entwürfe
+bleiben nach dem Kopieren in den finalen Unterordner zusätzlich im Staging-
+Ordner liegen und müssen hin und wieder von Hand aufgeräumt werden.
 
 ## Konten & Connector-Autorisierung (E-Mail über anderes Konto)
 

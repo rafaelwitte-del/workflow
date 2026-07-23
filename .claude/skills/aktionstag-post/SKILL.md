@@ -89,17 +89,43 @@ Google-Drive-Connectors, falls ein Ordner-Picker angeboten wird, dort auch
 technisch **nur diese zwei Ordner** auswählen/freigeben — nicht "gesamtes
 Drive" autorisieren. Verhalten *und* Berechtigung sollten beide eng sein.
 
-**Freigabe — per E-Mail, privat, durch Rafael.**
-Nach Erstellung wird der Entwurf **privat per E-Mail an Rafael**
-(`rafael.witte@froach.de`) geschickt (nie als Antwort an den
-Verteiler/die Absender-Gruppe der Eingangs-Mail). Rafael gibt das Go — nicht
-Gunnar. Betreff dieser Entwurfs-Mail immer klar abweichend vom
-Eingangs-Betreffmuster wählen (z. B. „Entwurf zur Kontrolle: <Anlass>"),
-damit die Betreff-Filterung oben diese Mail nie als neue Foto-Einsendung
-missversteht. Erst nach Rafaels ausdrücklicher Zustimmung per
-E-Mail-Antwort **auf genau diese Mail** wird das Ergebnis in den
-Ergebnis-Ordner (s. o.) hochgeladen. Ohne Zustimmung: nichts hochladen,
-nichts an Dritte weitergeben.
+**Freigabe — per Drive-Kommentar, durch Rafael.** (Getestet und bestätigt
+funktionsfähig am 23.07.2026.)
+Der Gmail-Connector kann laut eigener Beschreibung nur Entwürfe anlegen,
+Threads zusammenfassen und das Postfach durchsuchen — **kein tatsächliches
+Versenden**. Die Freigabe läuft deshalb nicht per E-Mail, sondern über
+Google Drive:
+
+1. Fertiges Bild + Caption-Textdatei in einen Staging-Unterordner
+   `Ergebnisse/_Entwurf zur Freigabe/<Segment>-<Datum>-<Kurztitel>/` legen
+   (liegt innerhalb des bereits erlaubten Ergebnis-Ordners, kein neuer
+   Top-Level-Ordner).
+2. Rafael öffnet die PNG-Datei in Drive (Doppelklick → Vorschau →
+   Sprechblasen-Symbol „Kommentar hinzufügen") und kommentiert mit einem
+   von zwei festen Stichworten:
+   - **„FREIGABE"** (Groß-/Kleinschreibung egal) → eindeutiges Go. Die Datei
+     (PNG + Caption) per `copy_file` zusätzlich in den passenden
+     Segment-Unterordner von „Ergebnisse" kopieren, danach **alle**
+     Original-Fotos dieses Aktionstages ins Design-System übernehmen (siehe
+     Schritt 6). Das Original im Staging-Unterordner bleibt technisch
+     liegen — `Google_Drive` hat kein Lösch-/Verschiebe-Werkzeug, nur
+     `copy_file`. Das ist reine Ablage-Unordnung (kein Datenschutzproblem)
+     und muss von Zeit zu Zeit von Hand aufgeräumt werden.
+   - **„Anpassung"** (irgendwo im Kommentartext) → **kein** Go. Stattdessen
+     in dieser laufenden Claude-Code-Sitzung (an die die Prüf-Routine
+     gebunden ist) mit vollem Kontext melden (Aktionstag, bisheriger
+     Entwurf, Rafaels Kommentartext), damit die Änderung interaktiv
+     besprochen werden kann — bei bloßem „Anpassung" ohne Details aktiv
+     nachfragen, was konkret nicht passt.
+   - Jeder andere Kommentartext (weder „FREIGABE" noch „Anpassung"): **nicht**
+     automatisch finalisieren, im Zweifel wie „Anpassung" behandeln und
+     nachfragen.
+3. Ich lese die Kommentare über `read_file_content` (Parameter
+   `includeComments`) aus — kein automatischer Push, das Auslesen passiert
+   bei jedem Postfach-/Freigabe-Check der Routine.
+4. Rafael gibt das Go — nicht Gunnar. Ohne „FREIGABE"-Kommentar: nichts in
+   den finalen Ergebnis-Unterordner kopieren, nichts ins Design-System
+   übernehmen, nichts an Dritte weitergeben.
 
 ## 1. Pflichtangaben abfragen
 
@@ -237,21 +263,21 @@ Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
 ## 6. Ausgabe — niemals automatisch posten
 
 1. Fertiges Bild aus dem Eingangs-Ordner-Lauf **zusammen mit dem
-   Caption-Text-Vorschlag** (siehe Schritt 5.4, immer beigefügt) **privat
-   per E-Mail an Rafael**
-   (`rafael.witte@froach.de`) schicken — niemals an den Verteiler/die
-   Absender-Gruppe zurück. Betreff klar abweichend vom
-   Eingangs-Betreffmuster (siehe Schritt 0a), z. B. „Entwurf zur Kontrolle:
-   <Anlass>". Im Text deutlich kennzeichnen: „Entwurf zur Kontrolle — noch
-   nicht gepostet, noch nicht in Drive/Design-System abgelegt."
-2. Warten auf Rafaels Zustimmung **als Antwort auf genau diese Mail**.
-   Kein Hochladen ohne diese Bestätigung.
-3. Nach Zustimmung: Ergebnis-PNG (und ggf. Caption als Textdatei) in den
-   Ergebnis-Ordner (siehe 0a) hochladen — sonst nichts in Drive verändern.
-4. **Erst nach derselben Zustimmung** außerdem **alle** zu diesem Aktionstag
-   erhaltenen Original-Fotos (nicht nur die im Post verwendeten) über
-   `DesignSync` (`list_files` → `finalize_plan` → `write_files`) in den zum
-   Segment passenden Foto-Unterordner des Design-System-Projekts
+   Caption-Text-Vorschlag** (siehe Schritt 5.4, immer beigefügt) in den
+   Staging-Unterordner `Ergebnisse/_Entwurf zur Freigabe/<Segment>-<Datum>-
+   <Kurztitel>/` legen (siehe Schritt 0a). Deutlich kennzeichnen: „Entwurf
+   zur Kontrolle — noch nicht final abgelegt, noch nicht ins
+   Design-System übernommen."
+2. Warten auf Rafaels Kommentar **„FREIGABE"** auf genau dieser Datei (siehe
+   Schritt 0a zum genauen Ablauf/Stichwörtern). Kein Finalisieren ohne
+   diesen Kommentar.
+3. Nach „FREIGABE": Ergebnis-PNG (und Caption als Textdatei) per `copy_file`
+   zusätzlich in den passenden Segment-Unterordner von „Ergebnisse"
+   ablegen — sonst nichts in Drive verändern.
+4. **Erst nach demselben „FREIGABE"-Kommentar** außerdem **alle** zu diesem
+   Aktionstag erhaltenen Original-Fotos (nicht nur die im Post verwendeten)
+   über `DesignSync` (`list_files` → `finalize_plan` → `write_files`) in den
+   zum Segment passenden Foto-Unterordner des Design-System-Projekts
    (`044c8b4b-076a-4543-930c-a3642c12b3fe`) ablegen:
    - Schule → `froachkids fotos/froachkids Fotos Schulaktionstage/`
    - Kita → `froachkids fotos/froachkids Kitaaktionstage/`
