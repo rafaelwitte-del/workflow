@@ -49,9 +49,9 @@ genau zwei Ordner** (Eingang, Ergebnis), sonst nichts im Drive.
 | Baustein | Status | Was noch nötig ist |
 |---|---|---|
 | **Chat-Nachricht in einer Claude-Code-Session** | ✅ funktioniert direkt | Nichts — Fotos + Infos hier reinschreiben, Skill wird automatisch erkannt. |
-| **E-Mail-Eingang (externe Adresse)** | 🟡 Gmail-Connector im Account vorhanden, aber für diesen Chat nicht aktiviert; externe Adresse noch nicht benannt | 1) Externe Adresse festlegen (muss ein Gmail-/Google-Workspace-Postfach sein), 2) Gmail-Connector für diese Adresse autorisieren, 3) Routine mit Cron `0 12,18 * * *` einrichten. |
+| **E-Mail-Eingang (externe Adresse)** | ✅ Gmail-Connector aktiv, verbunden mit `rafael.witte@froach.de` (externes Konto, getrennt von Gunnars eigenem) | Noch offen: Routine mit Cron `0 12,18 * * *` einrichten, damit die 2×-tägliche Prüfung automatisch läuft. |
 | **Google Chat / Spaces** | ⛔ nicht möglich | Kein Connector vorhanden, eigene Google-API — bewusst **nicht** Teil dieses Workflows (s. Diskussion). |
-| **Google Drive (2 Ordner)** | 🟡 Connector vorhanden, nicht aktiviert; Ordner-IDs noch nicht benannt | Eingangs- und Ergebnis-Ordner benennen/verlinken, Connector idealerweise per Ordner-Picker nur auf diese zwei Ordner autorisieren. |
+| **Google Drive (2 Unterordner)** | ✅ Connector aktiv, Ordner verifiziert | Nichts weiter — siehe Ordnerstruktur unten. |
 | **Slack / Teams** | ⛔ verworfen zugunsten E-Mail | — |
 
 Diese Trigger-Einrichtung ist eine **Produkt-Konfiguration** (siehe
@@ -64,7 +64,8 @@ E-Mail-Freigabe, kein Auto-Post) stehen bereits fest im Skill
 ## 3. Was du mitschicken solltest
 
 - Format: **Post** oder **Story**
-- Segment: **Kita/Schule** oder **Pflege/Firma**
+- Segment: **Schule**, **Kita**, **Pflege** oder **Projektmodul** (Schule/Kita
+  = froachkids-Design, Pflege/Projektmodul = relax & froach/froachcare-Design)
 - Anlass/Titel, Datum, Ort/Einrichtung
 - Sponsor/Kostenträger — **nur nennen, wenn dessen Logo aufs Bild soll**
   (siehe Abschnitt 4 im Skill: Partner-Logos werden sonst nie automatisch
@@ -96,19 +97,29 @@ Details und der volle Ablauf stehen in
 ## 5. Offene Punkte
 
 Layout-Beispiele (Post 4:5 + Story, ohne Fotos) sind erstellt und dir per
-Chat zugeschickt. Noch konkret zu klären, bevor der Workflow scharf
-geschaltet werden kann:
+Chat zugeschickt. Connectoren und Ordnerstruktur sind verifiziert (siehe
+unten) — offen ist noch:
 
-1. **Externe Eingangs-Adresse:** Welche Gmail-/Google-Workspace-Adresse
-   (auf einem anderen Konto als `gunnar.reinhardt@froach.de`) nutzt ihr —
-   existiert sie schon, oder muss sie neu angelegt werden? Siehe
-   „Konten & Connector-Autorisierung" unten zum genauen Ablauf.
-2. **Zwei Drive-Ordner:** Namen stehen fest — „**Fotos Instagram**"
-   (Eingang) und „**Ergebnisse**" (Ausgabe) — Link/ID der beiden Ordner
-   fehlt noch, sobald du den Zugriff gibst.
-3. Beide Connectoren (Gmail für die externe Adresse, Google Drive) müssen
-   einmal für diesen Chat autorisiert werden — das kann nur du in den
-   Connector-Einstellungen tun.
+1. Routine mit Cron `0 12,18 * * *` einrichten, damit die 2×-tägliche
+   Mail-Prüfung automatisch läuft (aktuell noch manuell auszulösen).
+
+### Ordnerstruktur (verifiziert)
+
+Überordner „**Fotos für Insta**" (auch „Fotos für Social Media" / kurz
+**SM**),
+[Link](https://drive.google.com/drive/folders/1K0p18K303KVR0dQAp6yMsynXgDP8elmA),
+enthält genau zwei relevante Unterordner — lose Dateien direkt im
+Überordner gehören nicht zum Workflow und werden ignoriert:
+
+- **Fotos Aktionstage** (Eingang) —
+  [Link](https://drive.google.com/drive/folders/1d3wvlAhieickno0yLJ1qkQGDiIdPUvcY)
+- **Ergebnisse** (Ausgabe) —
+  [Link](https://drive.google.com/drive/folders/1_a2H3UiA6Ex3xS-HAPkQTWPrSutRG_Ec)
+
+Beide gliedern sich identisch in vier Segment-Unterordner: **Schule**,
+**Kita**, **Pflege**, **Projektmodul**. Design-seitig gibt es aber nur zwei
+Linien — Schule/Kita laufen unter **froachkids**, Pflege/Projektmodul unter
+**relax & froach/froachcare** (Details siehe SKILL.md Schritt 2).
 
 ## Konten & Connector-Autorisierung (E-Mail über anderes Konto)
 

@@ -53,20 +53,32 @@ das mehrere Kolleg:innen schicken können.
   Chat/Spaces-Bereich landen, werden **nicht** erkannt — nur echte E-Mails
   an die oben genannte Adresse.
 
-**Google Drive — strikt auf zwei Ordner begrenzt.**
-Zugriff ist **ausschließlich** auf genau zwei Ordner erlaubt:
+**Google Drive — strikt auf zwei Unterordner begrenzt.**
+Beide liegen unter dem Überordner „**Fotos für Insta**" (auch „Fotos für
+Social Media" / kurz **SM** genannt,
+[Link](https://drive.google.com/drive/folders/1K0p18K303KVR0dQAp6yMsynXgDP8elmA)).
+Zugriff ist **ausschließlich** auf genau diese zwei Unterordner erlaubt:
 
-1. **Eingangs-Ordner** „**Fotos Instagram**" (Zwischenablage der hochgeladenen
-   Fotos): `<Ordner-ID/Link noch zu benennen>`
+1. **Eingangs-Ordner** „**Fotos Aktionstage**" (Zwischenablage der per Mail
+   eingegangenen Fotos):
+   [Link](https://drive.google.com/drive/folders/1d3wvlAhieickno0yLJ1qkQGDiIdPUvcY)
 2. **Ergebnis-Ordner** „**Ergebnisse**" (fertige, freigegebene Posts/Stories):
-   `<Ordner-ID/Link noch zu benennen>`
+   [Link](https://drive.google.com/drive/folders/1_a2H3UiA6Ex3xS-HAPkQTWPrSutRG_Ec)
+
+Beide Unterordner sind identisch in vier Segment-Unterordner gegliedert:
+**Schule**, **Kita**, **Pflege**, **Projektmodul** (Ablage/Auslage jeweils
+im passenden Segment-Unterordner, siehe Schritt 2 zur Sub-Marken-Zuordnung).
+
+Lose Dateien, die direkt im Überordner „Fotos für Insta" liegen (nicht in
+einem der beiden Unterordner bzw. deren Segment-Unterordnern), gehören
+**nicht** zu diesem Workflow und werden **ignoriert**.
 
 Harte Regel: **Kein** Auflisten, Lesen, Schreiben oder Suchen außerhalb
-dieser zwei Ordner-IDs — kein Durchsuchen des restlichen Drives, keine
-Stichwortsuche über den gesamten Drive-Index, kein Zugriff auf andere
-Ordner „nur um kurz nachzuschauen". Falls eine Aufgabe scheinbar Zugriff
-außerhalb dieser zwei Ordner erfordert: **anhalten und Gunnar fragen**,
-statt den Rahmen zu erweitern.
+dieser zwei Unterordner (inkl. ihrer vier Segment-Unterordner) — kein
+Durchsuchen des restlichen Drives, keine Stichwortsuche über den gesamten
+Drive-Index, kein Zugriff auf andere Ordner „nur um kurz nachzuschauen".
+Falls eine Aufgabe scheinbar Zugriff außerhalb dieses Rahmens erfordert:
+**anhalten und Gunnar fragen**, statt den Rahmen zu erweitern.
 
 Zusätzlich zur reinen Verhaltensregel hier: Beim Autorisieren des
 Google-Drive-Connectors, falls ein Ordner-Picker angeboten wird, dort auch
@@ -86,7 +98,8 @@ Wenn nicht bereits mitgeliefert, folgende Angaben erfragen:
 
 - **Format:** Post (Feed, 1080×1350 hochkant oder 1080×1080 quadratisch) oder
   Story (1080×1920)?
-- **Segment:** Schule / Kita **oder** Pflege / Firma (Organisation)? Bestimmt
+- **Segment:** **Schule**, **Kita**, **Pflege** oder **Projektmodul**
+  (entspricht dem jeweiligen Segment-Unterordner in Drive, s. o.)? Bestimmt
   die Sub-Marke (siehe Schritt 2).
 - **Anlass/Titel:** z. B. „Gesundheitstag", „Bewegungspause", „froachkids
   Aktionstag".
@@ -101,13 +114,22 @@ Anlass oder Segment.
 
 ## 2. Segment → Sub-Marke
 
-| Segment | Sub-Marke | Farbwelt / Ton | Bildsprache |
+Vier Drive-Segment-Ordner, aber nur **zwei** Design-Linien — Schule und Kita
+gehören klar zusammen (froachkids), Pflege und Projektmodul ebenso klar zur
+professionellen Linie (relax & froach/froachcare). Beide Linien niemals
+mischen, auch nicht bei Mehrfach-Anlässen.
+
+| Segment (Drive-Unterordner) | Sub-Marke | Farbwelt / Ton | Bildsprache |
 |---|---|---|---|
 | **Kita, Schule** | **froachkids** | Bunte Buchstabenfarben (Capri/Green/Mustard/Bittersweet), verspielter, wärmerer Ton | Maskottchen „Froach" (Posen/Szenen), Illustration `colorful-hands.png`, Fotos aus `froachkids fotos/` |
-| **Pflege, Firmen/Organisation** | **relax & froach / froachcare** | Brand Blue `#044894` + froach Green `#94CE0E`, sachlich-professioneller Ton | Editorial Fotografie, arch-förmige Foto-Karten mit Navy-Overlay (`--rf-photo-overlay`), kein Maskottchen in formellen Kontexten |
+| **Pflege, Projektmodul** | **relax & froach / froachcare** | Brand Blue `#044894` + froach Green `#94CE0E`, sachlich-professioneller Ton | Editorial Fotografie, arch-förmige Foto-Karten mit Navy-Overlay (`--rf-photo-overlay`), kein Maskottchen in formellen Kontexten |
 
 Der `froach`-Wortstamm bleibt immer Brand Blue; nur Tagline-Farbe/-Wort und
-Bildsprache wechseln. Nie froachkids- und froachcare-Elemente mischen.
+Bildsprache wechseln. Nie froachkids- und froachcare-Elemente mischen. Bei
+Unsicherheit, ob ein Anlass „Projektmodul" oder „Pflege" ist: beide liegen
+auf derselben Design-Linie, daher unkritisch — bei Unsicherheit zwischen
+Kita/Schule und Pflege/Projektmodul dagegen **immer nachfragen**, da hier
+die Sub-Marke wechselt.
 
 ## 3. Partner-/Kostenträger-Logo — nur auf ausdrücklichen Wunsch
 
