@@ -153,6 +153,23 @@ der Nutzer nur "Sponsor XY" nennt. Erst einbauen, wenn der Nutzer in der
 aktuellen Anfrage ausdrücklich sagt, dass das Logo aufs Bild soll. Im Zweifel
 nachfragen: „Soll das Logo von [Kostenträger] mit aufs Bild?"
 
+**Ausnahme — Logo-Datei liegt der Eingangsmail bei.** Ist der E-Mail mit den
+Aktionstag-Fotos eine Partner-/Kostenträger-Logo-Datei als Anhang
+beigefügt, gilt das als der geforderte ausdrückliche Wunsch — das Logo darf
+dann ohne zusätzliche Rückfrage aufs Bild. In der Entwurfs-Mail an Rafael
+trotzdem kurz vermerken, dass ein beigefügtes Logo verwendet wurde (z. B.
+„Logo von [Partner] aus der Eingangsmail übernommen"), damit er das in
+seiner Freigabe gegenprüfen kann.
+
+**Neue/unbekannte Partner-Logos ins Design-System übernehmen.** Ist der
+Partner noch nicht im `Partner/`-Ordner des Design-System-Projekts
+(`044c8b4b-076a-4543-930c-a3642c12b3fe`) vorhanden, das mitgeschickte
+Logo dort per `DesignSync` (`list_files` → `finalize_plan` → `write_files`,
+Pfad `Partner/<Partnername>.png` bzw. passendes Format) ablegen — das kann,
+anders als bei Fotos mit Personen, **sofort** passieren und muss nicht auf
+Rafaels Freigabe warten, da ein Firmenlogo keine personenbezogenen Daten
+enthält.
+
 **Hintergrund für den Nutzer (§20 SGB V):** Die meisten dieser Aktionstage
 dürften im Rahmen der **primären Prävention und betrieblichen
 Gesundheitsförderung nach § 20 SGB V** (Leistungen der gesetzlichen
@@ -212,14 +229,16 @@ Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
 3. Als PNG in der Zielauflösung rendern (z. B. Headless-Chromium-Screenshot
    oder das `canvas-design`-Skill als Alternative, wenn ein freieres,
    illustratives Layout gewünscht ist statt eines HTML-Templates).
-4. Kurzen Bildtext-/Caption-Vorschlag danebenstellen (deutsch, Ton laut
-   Segment), inkl. `#relaxundfroach`-artiger Hashtag-Vorschläge — als Text im
-   Chat, nicht ins Bild einbrennen, außer gewünscht.
+4. **Immer** einen kurzen Bildtext-/Caption-Vorschlag danebenstellen (deutsch,
+   Ton laut Segment), inkl. `#relaxundfroach`-artiger Hashtag-Vorschläge — als
+   Text im Chat/in der Entwurfs-Mail, nicht ins Bild einbrennen, außer
+   gewünscht. Das ist fester Bestandteil jedes Laufs, kein optionaler Zusatz.
 
 ## 6. Ausgabe — niemals automatisch posten
 
-1. Fertiges Bild aus dem Eingangs-Ordner-Lauf (und optionalen
-   Caption-Text-Vorschlag) **privat per E-Mail an Rafael**
+1. Fertiges Bild aus dem Eingangs-Ordner-Lauf **zusammen mit dem
+   Caption-Text-Vorschlag** (siehe Schritt 5.4, immer beigefügt) **privat
+   per E-Mail an Rafael**
    (`rafael.witte@froach.de`) schicken — niemals an den Verteiler/die
    Absender-Gruppe zurück. Betreff klar abweichend vom
    Eingangs-Betreffmuster (siehe Schritt 0a), z. B. „Entwurf zur Kontrolle:

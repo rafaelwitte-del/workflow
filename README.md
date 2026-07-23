@@ -73,10 +73,15 @@ E-Mail-Freigabe, kein Auto-Post) stehen bereits fest im Skill
   eigenes „froachcare"-Logo)
 - Anlass/Titel, Datum, Ort/Einrichtung
 - Sponsor/Kostenträger — **nur nennen, wenn dessen Logo aufs Bild soll**
-  (siehe Abschnitt 4 im Skill: Partner-Logos werden sonst nie automatisch
-  eingebaut)
+  (siehe Abschnitt 3 im Skill: Partner-Logos werden sonst nie automatisch
+  eingebaut). Liegt der Mail direkt eine Partner-Logo-Datei bei, gilt das
+  bereits als die nötige Freigabe fürs Bild; neue Partner-Logos werden dabei
+  zusätzlich dauerhaft im Design-System-Projekt abgelegt.
 - Die Fotos selbst
 - Optional: 1–2 Sätze, was beim Aktionstag gemacht wurde
+
+Ein kurzer Caption-Vorschlag wird von mir **immer** mitgeliefert, unabhängig
+davon, was du mitschickst — das ist fester Bestandteil jedes Entwurfs.
 
 Details und der volle Ablauf stehen in
 [`.claude/skills/aktionstag-post/SKILL.md`](.claude/skills/aktionstag-post/SKILL.md).
