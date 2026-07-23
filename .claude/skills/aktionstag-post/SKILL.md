@@ -116,7 +116,7 @@ Anlass oder Segment.
 
 Vier Drive-Segment-Ordner, aber nur **zwei** Design-Linien — Schule und Kita
 gehören klar zusammen (froachkids), Pflege und Projektmodul ebenso klar zur
-professionellen Linie (relax & froach/froachcare). Beide Linien niemals
+professionellen Linie (relax & froach). Beide Linien niemals
 mischen, auch nicht bei Mehrfach-Anlässen.
 
 | Segment (Drive-Unterordner) | Sub-Marke | Farbwelt / Ton | Bildsprache |
@@ -169,6 +169,11 @@ Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
   Einwilligungen der Eltern für die gezeigten Kinder vor?" Falls nein oder
   unklar: Fotos ohne erkennbare Gesichter vorschlagen (Rückenansicht,
   Ausschnitt, Distanz, oder Maskottchen/Illustration statt Kinderfotos).
+  **Zusätzlich, unabhängig vom Einwilligungsstand:** Jedes erkennbare
+  Kindergesicht in dem final erzeugten Post/Story-Bild wird **immer
+  verpixelt/unkenntlich gemacht** (siehe Schritt 5) — die Einwilligung
+  entscheidet also nur, ob ein Foto mit Kindern überhaupt genutzt wird,
+  nicht darüber, ob Gesichter scharf gezeigt werden.
 - **Pflege/Firmen (Erwachsene):** Einwilligung der abgebildeten Personen
   (Mitarbeitende, Bewohner:innen/Pflegebedürftige) erfragen — bei
   Pflegeeinrichtungen besondere Sensibilität, da ggf. gesundheitsbezogene
@@ -187,9 +192,14 @@ Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
    ablegen.
 2. Statische HTML-Datei in exakter Zielgröße bauen (1080×1350 / 1080×1080 /
    1080×1920), Foto(s) des Nutzers einbinden, Branding gemäß Segment
-   anwenden (arch-förmige Karte bei relax & froach/froachcare, verspielteres
-   Layout mit Maskottchen bei froachkids), Anlass/Datum/Ort als Textebene,
+   anwenden (arch-förmige Karte bei relax & froach, verspielteres Layout
+   mit Maskottchen bei froachkids), Anlass/Datum/Ort als Textebene,
    Partner-Logo nur falls in Schritt 3 bestätigt.
+   **Bei Kita/Schule-Fotos:** jedes erkennbare Kindergesicht vor dem
+   Zusammenbau verpixeln/weichzeichnen (kräftige Pixelierung, kein leichter
+   Weichzeichner) — unabhängig davon, ob eine Einwilligung vorliegt (siehe
+   Schritt 4). Bei Unsicherheit, ob eine Fläche ein Gesicht ist: im Zweifel
+   verpixeln statt riskieren.
 3. Als PNG in der Zielauflösung rendern (z. B. Headless-Chromium-Screenshot
    oder das `canvas-design`-Skill als Alternative, wenn ein freieres,
    illustratives Layout gewünscht ist statt eines HTML-Templates).
