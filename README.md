@@ -11,7 +11,9 @@ zur Kontrolle, nicht zur automatischen Veröffentlichung.
 3. [Was du mitschicken solltest](#3-was-du-mitschicken-solltest)
 4. [Rechtliches / Datenschutz](#4-rechtliches--datenschutz)
 5. [Offene Punkte](#5-offene-punkte)
-6. [Quellen](#6-quellen)
+6. [Konten & Connector-Autorisierung](#konten--connector-autorisierung-e-mail-über-anderes-konto)
+7. [Google Chat als Auslöser — Ergebnis der Prüfung](#google-chat-als-auslöser--ergebnis-der-prüfung)
+8. [Quellen](#6-quellen)
 
 ## 1. Wie der Workflow funktioniert
 
@@ -93,19 +95,48 @@ Details und der volle Ablauf stehen in
 
 ## 5. Offene Punkte
 
-Noch konkret zu benennen, bevor der Workflow scharf geschaltet werden kann:
+Layout-Beispiele (Post 4:5 + Story, ohne Fotos) sind erstellt und dir per
+Chat zugeschickt. Noch konkret zu klären, bevor der Workflow scharf
+geschaltet werden kann:
 
 1. **Externe Eingangs-Adresse:** Welche Gmail-/Google-Workspace-Adresse
-   nutzt ihr (existiert sie schon, oder muss sie neu angelegt werden)?
-2. **Zwei Drive-Ordner:** Link/ID des Eingangs-Ordners und des
-   Ergebnis-Ordners.
+   (auf einem anderen Konto als `gunnar.reinhardt@froach.de`) nutzt ihr —
+   existiert sie schon, oder muss sie neu angelegt werden? Siehe
+   „Konten & Connector-Autorisierung" unten zum genauen Ablauf.
+2. **Zwei Drive-Ordner:** Namen stehen fest — „**Fotos Instagram**"
+   (Eingang) und „**Ergebnisse**" (Ausgabe) — Link/ID der beiden Ordner
+   fehlt noch, sobald du den Zugriff gibst.
 3. Beide Connectoren (Gmail für die externe Adresse, Google Drive) müssen
    einmal für diesen Chat autorisiert werden — das kann nur du in den
    Connector-Einstellungen tun.
-4. Soll ich testweise mit einem vorhandenen Foto aus dem Design-System
-   (z. B. aus `froachkids fotos/` oder `froach Gesundheitstage/`) schon
-   einmal einen Beispiel-Post ohne den vollen E-Mail/Drive-Kreislauf
-   erstellen, damit du das Layout beurteilen kannst?
+
+## Konten & Connector-Autorisierung (E-Mail über anderes Konto)
+
+Du wolltest wissen, wie das mit dem externen Konto (nicht
+`gunnar.reinhardt@froach.de`) technisch funktioniert:
+
+- Der Gmail-Connector in Claude ist an irgendein Google-Konto gebunden,
+  nicht zwingend an dein Claude-Login. Beim Autorisieren öffnet sich ein
+  normaler Google-Login-Bildschirm — dort meldest du dich **mit dem
+  externen Konto** an (nicht mit deinem persönlichen), sofern du dessen
+  Zugangsdaten hast bzw. darauf zugreifen kannst. Danach liest der
+  Connector genau dieses externe Postfach.
+- Alternative, falls ihr das externe Postfach nicht direkt anmelden wollt:
+  Google-Workspace-Postfachzugriff/Delegation auf ein Konto einrichten,
+  das der Connector schon nutzt — technisch aufwendiger und nur innerhalb
+  derselben Google-Workspace-Domain möglich.
+- Praktisch einfachster Weg: externes Konto direkt beim Connector-Login
+  verwenden.
+
+## Google Chat als Auslöser — Ergebnis der Prüfung
+
+Nicht möglich mit den aktuell installierten Connectoren (Gmail, Google
+Drive, Google Calendar, Canva) — kein Google-Chat/Spaces-Connector
+vorhanden. Die Registry-Suche nach zusätzlichen Connectoren ist in den
+Claude-Einstellungen aktuell deaktiviert („Connector-Vorschläge"); du
+kannst das selbst aktivieren oder im Connector-Verzeichnis auf claude.ai
+nachsehen — nach aktuellem Stand gehört Google Chat/Spaces aber nicht zu
+den gängigen verfügbaren Connectoren.
 
 ## 6. Quellen
 

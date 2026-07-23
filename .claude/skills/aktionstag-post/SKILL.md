@@ -35,9 +35,14 @@ Fotos + Infos (Sponsor, Datum etc.) kommen per normaler E-Mail an eine
 Gunnar (`gunnar.reinhardt@froach.de`), sondern ein separates Postfach, an
 das mehrere Kolleg:innen schicken können.
 
-- Adresse: `<EINGANGS_ADRESSE — noch zu benennen>` (muss ein
-  Google-/Gmail-Postfach sein, damit der Gmail-Connector greift; andere
-  Mail-Anbieter werden aktuell nicht unterstützt).
+- Adresse: `<EINGANGS_ADRESSE — noch zu benennen>` — läuft über einen
+  **anderen Google-Account als Gunnars eigenen** (`gunnar.reinhardt@froach.de`
+  wird explizit nicht dafür verwendet). Muss ein Google-/Gmail-Postfach sein,
+  damit der Gmail-Connector greift; andere Mail-Anbieter werden aktuell nicht
+  unterstützt. Beim Autorisieren des Gmail-Connectors in den
+  Claude-Verbindungseinstellungen im Google-Login-Bildschirm **dieses externe
+  Konto** auswählen/eingeben (nicht Gunnars persönliches) — dafür werden die
+  Zugangsdaten dieses externen Kontos benötigt.
 - Kein Sofort-Trigger bei Mail-Eingang möglich — stattdessen **zeitgesteuerte
   Prüfung 2× täglich, 12:00 und 18:00 Uhr**. Bei jedem Lauf: seit dem letzten
   Lauf neu eingegangene Mails an diese Adresse mit Foto-Anhang sichten.
@@ -51,10 +56,10 @@ das mehrere Kolleg:innen schicken können.
 **Google Drive — strikt auf zwei Ordner begrenzt.**
 Zugriff ist **ausschließlich** auf genau zwei Ordner erlaubt:
 
-1. **Eingangs-Ordner** (Zwischenablage der hochgeladenen Fotos):
-   `<DRIVE_ORDNER_EINGANG — Ordner-ID/Link noch zu benennen>`
-2. **Ergebnis-Ordner** (fertige, freigegebene Posts/Stories):
-   `<DRIVE_ORDNER_ERGEBNIS — Ordner-ID/Link noch zu benennen>`
+1. **Eingangs-Ordner** „**Fotos Instagram**" (Zwischenablage der hochgeladenen
+   Fotos): `<Ordner-ID/Link noch zu benennen>`
+2. **Ergebnis-Ordner** „**Ergebnisse**" (fertige, freigegebene Posts/Stories):
+   `<Ordner-ID/Link noch zu benennen>`
 
 Harte Regel: **Kein** Auflisten, Lesen, Schreiben oder Suchen außerhalb
 dieser zwei Ordner-IDs — kein Durchsuchen des restlichen Drives, keine
