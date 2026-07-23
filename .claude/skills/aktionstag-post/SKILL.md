@@ -32,20 +32,24 @@ Design-Systems). Ältere Guides ignorieren.
 **Eingang — externe E-Mail-Adresse, zeitgesteuert geprüft.**
 Fotos + Infos (Sponsor, Datum etc.) kommen per normaler E-Mail an eine
 **externe** Adresse — ausdrücklich **nicht** das persönliche Konto von
-Gunnar (`gunnar.reinhardt@froach.de`), sondern ein separates Postfach, an
-das mehrere Kolleg:innen schicken können.
+Gunnar (`gunnar.reinhardt@froach.de`), sondern das Postfach von Rafael
+(`rafael.witte@froach.de`), an das mehrere Kolleg:innen schicken können.
 
-- Adresse: `<EINGANGS_ADRESSE — noch zu benennen>` — läuft über einen
-  **anderen Google-Account als Gunnars eigenen** (`gunnar.reinhardt@froach.de`
-  wird explizit nicht dafür verwendet). Muss ein Google-/Gmail-Postfach sein,
-  damit der Gmail-Connector greift; andere Mail-Anbieter werden aktuell nicht
-  unterstützt. Beim Autorisieren des Gmail-Connectors in den
-  Claude-Verbindungseinstellungen im Google-Login-Bildschirm **dieses externe
-  Konto** auswählen/eingeben (nicht Gunnars persönliches) — dafür werden die
-  Zugangsdaten dieses externen Kontos benötigt.
+- Adresse: `rafael.witte@froach.de` — ein **anderer Google-Account als
+  Gunnars eigenen** (`gunnar.reinhardt@froach.de` wird explizit nicht dafür
+  verwendet). Der Gmail-Connector ist bereits mit diesem Konto verbunden.
 - Kein Sofort-Trigger bei Mail-Eingang möglich — stattdessen **zeitgesteuerte
   Prüfung 2× täglich, 12:00 und 18:00 Uhr**. Bei jedem Lauf: seit dem letzten
-  Lauf neu eingegangene Mails an diese Adresse mit Foto-Anhang sichten.
+  Lauf neu eingegangene Mails an diese Adresse sichten.
+- **Betreff-Filter — nicht das ganze Postfach scannen.** Nur E-Mails
+  berücksichtigen, deren Betreff (tolerant, kein stures 1:1-Match) etwas wie
+  „**Fotos in Aktion für Social Media**" enthält — Wortlaut kann leicht
+  variieren (z. B. „Fotos Aktion Socialmedia", „Fotos SM"), Kernbegriffe sind
+  **„Fotos"** + **„Aktion"** + **„Social Media"/"Socialmedia"/"SM"**. E-Mails
+  ohne dieses Muster im Betreff werden ignoriert, auch wenn sie
+  Foto-Anhänge haben. Das gilt auch, weil dasselbe Postfach zusätzlich die
+  Entwurfs-/Freigabe-Mails (s. u.) empfängt — die Betreff-Filterung trennt
+  eingehende Fotoeinsendungen zuverlässig von diesem eigenen Mailverkehr.
 - **Explizit NICHT unterstützt:** die Chat-/Spaces-Funktion innerhalb von
   Gmail (Google Chat). Das ist eine eigene Google-API mit eigenen
   Berechtigungen, kein Bestandteil des Gmail-Connectors, und es existiert
@@ -85,11 +89,16 @@ Google-Drive-Connectors, falls ein Ordner-Picker angeboten wird, dort auch
 technisch **nur diese zwei Ordner** auswählen/freigeben — nicht "gesamtes
 Drive" autorisieren. Verhalten *und* Berechtigung sollten beide eng sein.
 
-**Freigabe — per E-Mail, privat.**
-Nach Erstellung wird der Entwurf **privat per E-Mail an Gunnar** geschickt
-(nie als Antwort an den Verteiler/die Absender-Gruppe der Eingangs-Mail).
-Erst nach ausdrücklicher Zustimmung per E-Mail-Antwort wird das Ergebnis in
-den Ergebnis-Ordner (s. o.) hochgeladen. Ohne Zustimmung: nichts hochladen,
+**Freigabe — per E-Mail, privat, durch Rafael.**
+Nach Erstellung wird der Entwurf **privat per E-Mail an Rafael**
+(`rafael.witte@froach.de`) geschickt (nie als Antwort an den
+Verteiler/die Absender-Gruppe der Eingangs-Mail). Rafael gibt das Go — nicht
+Gunnar. Betreff dieser Entwurfs-Mail immer klar abweichend vom
+Eingangs-Betreffmuster wählen (z. B. „Entwurf zur Kontrolle: <Anlass>"),
+damit die Betreff-Filterung oben diese Mail nie als neue Foto-Einsendung
+missversteht. Erst nach Rafaels ausdrücklicher Zustimmung per
+E-Mail-Antwort **auf genau diese Mail** wird das Ergebnis in den
+Ergebnis-Ordner (s. o.) hochgeladen. Ohne Zustimmung: nichts hochladen,
 nichts an Dritte weitergeben.
 
 ## 1. Pflichtangaben abfragen
@@ -157,7 +166,7 @@ an der Logo-Regel oben, ist aber für die Bildunterschrift/den Text relevant
 
 Personenbezogene Daten werden **in diesem Repo nicht gespeichert** — weder
 Namen noch andere identifizierende Angaben landen in Dateien dieses Repos.
-Nach Gunnars Freigabe (siehe Schritt 6) werden die Original-Fotos jedoch
+Nach Rafaels Freigabe (siehe Schritt 6) werden die Original-Fotos jedoch
 dauerhaft an zwei Stellen außerhalb des Repos abgelegt (Drive-Ordner
 „Ergebnisse" und Design-System-Fotobibliothek) — deshalb ist die
 Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
@@ -210,11 +219,13 @@ Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
 ## 6. Ausgabe — niemals automatisch posten
 
 1. Fertiges Bild aus dem Eingangs-Ordner-Lauf (und optionalen
-   Caption-Text-Vorschlag) **privat per E-Mail an Gunnar** schicken — niemals
-   an den Verteiler/die Absender-Gruppe zurück. Deutlich kennzeichnen:
-   „Entwurf zur Kontrolle — noch nicht gepostet, noch nicht in Drive
-   abgelegt."
-2. Warten auf Gunnars Zustimmung **als Antwort auf genau diese Mail**.
+   Caption-Text-Vorschlag) **privat per E-Mail an Rafael**
+   (`rafael.witte@froach.de`) schicken — niemals an den Verteiler/die
+   Absender-Gruppe zurück. Betreff klar abweichend vom
+   Eingangs-Betreffmuster (siehe Schritt 0a), z. B. „Entwurf zur Kontrolle:
+   <Anlass>". Im Text deutlich kennzeichnen: „Entwurf zur Kontrolle — noch
+   nicht gepostet, noch nicht in Drive/Design-System abgelegt."
+2. Warten auf Rafaels Zustimmung **als Antwort auf genau diese Mail**.
    Kein Hochladen ohne diese Bestätigung.
 3. Nach Zustimmung: Ergebnis-PNG (und ggf. Caption als Textdatei) in den
    Ergebnis-Ordner (siehe 0a) hochladen — sonst nichts in Drive verändern.

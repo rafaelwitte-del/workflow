@@ -28,9 +28,9 @@ Skill „aktionstag-post" (.claude/skills/aktionstag-post/SKILL.md)
         │     „relax & froach Design System" lesen
         │  3. Entwurf bauen: Instagram-Post oder -Story (PNG)
         ▼
-Private E-Mail an Gunnar mit Entwurf — NIE Antwort an den Verteiler
+Private E-Mail an Rafael mit Entwurf — NIE Antwort an den Verteiler
         │
-        ▼   (erst nach Zustimmung per Mail-Antwort)
+        ▼   (erst nach Rafaels Zustimmung per Mail-Antwort)
 Ergebnis-PNG in Drive-Ergebnis-Ordner hochladen (nur dieser eine Ordner)
         +  alle Original-Fotos des Aktionstages zusätzlich in die passende
            Foto-Unterordner des Design-System-Projekts übernehmen
@@ -43,15 +43,17 @@ Skill liest es bei jedem Lauf aktuell aus, statt es zu duplizieren.
 
 ## 2. Auslöser (Trigger) — aktueller Stand
 
-Festgelegt: Eingang über eine **externe E-Mail-Adresse** (nicht Gunnars
-eigenes Konto), geprüft **2× täglich um 12:00 und 18:00 Uhr**. Freigabe läuft
-**per E-Mail-Antwort**, danach Ablage in Google Drive — **strikt begrenzt auf
-genau zwei Ordner** (Eingang, Ergebnis), sonst nichts im Drive.
+Festgelegt: Eingang über eine **externe E-Mail-Adresse** (`rafael.witte@froach.de`,
+nicht Gunnars eigenes Konto), geprüft **2× täglich um 12:00 und 18:00 Uhr**,
+nur E-Mails mit passendem Betreff-Muster (s. u.). Freigabe läuft **per
+E-Mail-Antwort von Rafael** (an dieselbe Adresse geschickt), danach Ablage in
+Google Drive — **strikt begrenzt auf genau zwei Unterordner** (Eingang,
+Ergebnis), sonst nichts im Drive.
 
 | Baustein | Status | Was noch nötig ist |
 |---|---|---|
 | **Chat-Nachricht in einer Claude-Code-Session** | ✅ funktioniert direkt | Nichts — Fotos + Infos hier reinschreiben, Skill wird automatisch erkannt. |
-| **E-Mail-Eingang (externe Adresse)** | ✅ Gmail-Connector aktiv, verbunden mit `rafael.witte@froach.de` (externes Konto, getrennt von Gunnars eigenem) | Noch offen: Routine mit Cron `0 12,18 * * *` einrichten, damit die 2×-tägliche Prüfung automatisch läuft. |
+| **E-Mail-Eingang (externe Adresse)** | ✅ Gmail-Connector aktiv, verbunden mit `rafael.witte@froach.de` (externes Konto, getrennt von Gunnars eigenem); Routine mit Cron `0 10,16 * * *` (UTC) = 12:00/18:00 Uhr MESZ eingerichtet | Nur Betreffe mit dem Muster „Fotos in Aktion für Social Media" (tolerant) werden als Einsendung gewertet, alles andere im Postfach wird ignoriert. |
 | **Google Chat / Spaces** | ⛔ nicht möglich | Kein Connector vorhanden, eigene Google-API — bewusst **nicht** Teil dieses Workflows (s. Diskussion). |
 | **Google Drive (2 Unterordner)** | ✅ Connector aktiv, Ordner verifiziert | Nichts weiter — siehe Ordnerstruktur unten. |
 | **Slack / Teams** | ⛔ verworfen zugunsten E-Mail | — |
@@ -82,7 +84,7 @@ Details und der volle Ablauf stehen in
 ## 4. Rechtliches / Datenschutz
 
 - Der Workflow speichert **keine personenbezogenen Daten in diesem Repo**.
-  Nach Gunnars Freigabe werden Original-Fotos jedoch dauerhaft an zwei
+  Nach Rafaels Freigabe werden Original-Fotos jedoch dauerhaft an zwei
   Stellen außerhalb des Repos abgelegt: dem Drive-Ordner „Ergebnisse" und
   der Foto-Bibliothek des Design-System-Projekts (**alle** eingegangenen
   Fotos des Aktionstages, nicht nur die im Post verwendeten) — deshalb ist
@@ -104,11 +106,13 @@ Details und der volle Ablauf stehen in
 ## 5. Offene Punkte
 
 Layout-Beispiele (Post 4:5 + Story, ohne Fotos) sind erstellt und dir per
-Chat zugeschickt. Connectoren und Ordnerstruktur sind verifiziert (siehe
-unten) — offen ist noch:
+Chat zugeschickt. Connectoren, Ordnerstruktur und die 2×-tägliche
+Mail-Prüfung (Routine, Cron `0 10,16 * * *` UTC = 12:00/18:00 Uhr MESZ) sind
+eingerichtet — offen ist noch:
 
-1. Routine mit Cron `0 12,18 * * *` einrichten, damit die 2×-tägliche
-   Mail-Prüfung automatisch läuft (aktuell noch manuell auszulösen).
+1. Bei der Umstellung auf Winterzeit (Ende Oktober) verschiebt sich die
+   tatsächliche Laufzeit der Routine um eine Stunde (11:00/17:00 Uhr) — Cron
+   dann per `update_trigger` auf `0 11,17 * * *` nachjustieren.
 
 ### Ordnerstruktur (verifiziert)
 
