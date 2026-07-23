@@ -89,17 +89,36 @@ Google-Drive-Connectors, falls ein Ordner-Picker angeboten wird, dort auch
 technisch **nur diese zwei Ordner** auswählen/freigeben — nicht "gesamtes
 Drive" autorisieren. Verhalten *und* Berechtigung sollten beide eng sein.
 
-**Freigabe — per Drive-Kommentar, durch Rafael.** (Getestet und bestätigt
-funktionsfähig am 23.07.2026.)
+**Freigabe — per Drive-Kommentar, durch Rafael.** (Kommentar-Mechanismus
+getestet und bestätigt funktionsfähig am 23.07.2026 — das **Hochladen des
+fertigen Bildes selbst ist aktuell technisch blockiert**, siehe Kasten
+unten.)
 Der Gmail-Connector kann laut eigener Beschreibung nur Entwürfe anlegen,
 Threads zusammenfassen und das Postfach durchsuchen — **kein tatsächliches
 Versenden**. Die Freigabe läuft deshalb nicht per E-Mail, sondern über
 Google Drive:
 
+**⚠ Bekannte Blockade (Test vom 23.07.2026):** `Google_Drive create_file`
+verlangt den kompletten Dateiinhalt inline als Base64-Text im Werkzeugaufruf
+— es gibt (anders als bei `DesignSync write_files`) **keinen `localPath`-
+Parameter**, der direkt von der Festplatte liest. Bild-Base64 lässt sich
+extrem ineffizient tokenisieren: Schon eine stark komprimierte ~140-KB-JPEG-
+Version eines 1080×1920-Entwurfs ließ sich nicht mehr vollständig zurück in
+den Kontext lesen. **Ergebnis: Ich kann aktuell keine fertigen Bild-Assets
+selbst nach Google Drive hochladen.** Workaround, bis es einen
+`localPath`-fähigen Weg gibt: Ich liefere Bild + Caption direkt im Chat
+(`SendUserFile`) aus; Rafael oder Gunnar legt die Datei manuell in den
+Staging-Unterordner. Ab dann funktionieren `copy_file` (Kopieren
+innerhalb von Drive) und `read_file_content`/Kommentare wieder normal,
+weil dabei kein neuer Binärinhalt durch meinen Kontext muss.
+
 1. Fertiges Bild + Caption-Textdatei in einen Staging-Unterordner
    `Ergebnisse/_Entwurf zur Freigabe/<Segment>-<Datum>-<Kurztitel>/` legen
    (liegt innerhalb des bereits erlaubten Ergebnis-Ordners, kein neuer
-   Top-Level-Ordner).
+   Top-Level-Ordner). **Solange die Upload-Blockade oben besteht:** Ordner
+   selbst per `create_file` (Ordner brauchen keinen Inhalt) anlegen, Bild +
+   Caption aber per `SendUserFile` ausliefern und Rafael/Gunnar bitten, sie
+   von Hand in genau diesen Unterordner zu legen.
 2. Rafael öffnet die PNG-Datei in Drive (Doppelklick → Vorschau →
    Sprechblasen-Symbol „Kommentar hinzufügen") und kommentiert mit einem
    von zwei festen Stichworten:

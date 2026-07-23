@@ -43,6 +43,16 @@ durchsuchen — **kein tatsächliches Versenden**. Die Freigabe läuft deshalb
 „FREIGABE" = Go, „Anpassung" = noch nicht fertig, siehe SKILL.md Schritt 0a)
 — am 23.07.2026 gemeinsam getestet und bestätigt funktionsfähig.
 
+**⚠ Neu entdeckte Blockade beim Volltest (23.07.2026):** Das Kommentieren
+funktioniert, aber ich kann das fertige Bild derzeit **nicht selbst** nach
+Drive hochladen — `create_file` verlangt den Dateiinhalt komplett inline im
+Werkzeugaufruf (kein `localPath` wie bei `DesignSync`), und Bild-Base64
+tokenisiert so ineffizient, dass schon ein stark komprimiertes ~140-KB-Bild
+nicht mehr vollständig verarbeitbar war. Übergangslösung: Ich liefere
+Bild + Caption direkt im Chat aus, Rafael/Gunnar legt die Datei von Hand in
+den Staging-Unterordner — danach funktionieren Kopieren und Kommentare
+wieder normal.
+
 Das eigentliche Corporate Design (Farben, Logos, Maskottchen „Froach",
 Partner-Logos, Fotos) liegt **nicht** in diesem Repo, sondern bleibt
 zentral im Claude-Design-Projekt *„relax & froach Design System"* — das
