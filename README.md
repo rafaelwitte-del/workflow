@@ -51,7 +51,7 @@ tokenisiert so ineffizient, dass schon ein stark komprimiertes ~140-KB-Bild
 nicht mehr vollständig verarbeitbar war. Übergangslösung: Ich liefere
 Bild + Caption direkt im Chat aus, Rafael/Gunnar legt die Datei von Hand in
 den Staging-Unterordner — danach funktionieren Kopieren und Kommentare
-wieder normal.
+wieder normal. Erneut geprüft am 24.07.2026: Blockade weiterhin unverändert (siehe Abschnitt 5, „Offene Punkte").
 
 Das eigentliche Corporate Design (Farben, Logos, Maskottchen „Froach",
 Partner-Logos, Fotos) liegt **nicht** in diesem Repo, sondern bleibt
@@ -134,9 +134,8 @@ Chat zugeschickt. Connectoren, Ordnerstruktur und die 2×-tägliche
 Mail-Prüfung (Routine, Cron `0 10,16 * * *` UTC = 12:00/18:00 Uhr MESZ) sind
 eingerichtet — offen ist noch:
 
-1. Bei der Umstellung auf Winterzeit (Ende Oktober) verschiebt sich die
-   tatsächliche Laufzeit der Routine um eine Stunde (11:00/17:00 Uhr) — Cron
-   dann per `update_trigger` auf `0 11,17 * * *` nachjustieren.
+1. **Winterzeit-Umstellung (Sonntag, 25.10.2026, 3:00 → 2:00 Uhr):** Der Cron `0 10,16 * * *` (UTC) läuft ab diesem Zeitpunkt real zu 11:00/17:00 Uhr MEZ statt 12:00/18:00 Uhr — die UTC-Zeit bleibt gleich, nur die lokale Uhrzeit verschiebt sich um eine Stunde nach vorn. Rechtzeitig vor dem 25.10.2026 per `update_trigger` auf `0 11,17 * * *` (UTC) anpassen, damit die Prüfung weiterhin lokal um 12:00/18:00 Uhr läuft. Empfehlung: Kalendererinnerung für den 24.10.2026 setzen — bisher noch nicht umgesetzt.
+2. **Bild-Upload-Blockade (siehe Abschnitt 1):** Weiterhin ungelöst. Stand der erneuten Prüfung am 24.07.2026: Der Google-Drive-Connector (`create_file`) bietet unverändert nur `base64Content`/`textContent`, keinen Datei-Pfad-Parameter und keinen Chunk-/Resumable-Upload. Der Workaround (manuelle Zwischenablage durch Rafael/Gunnar, siehe SKILL.md Schritt 0a) bleibt bis zu einer Connector-Änderung notwendig.
 
 ### Ordnerstruktur (verifiziert)
 
