@@ -110,7 +110,7 @@ selbst nach Google Drive hochladen.** Workaround, bis es einen
 (`SendUserFile`) aus; Rafael oder Gunnar legt die Datei manuell in den
 Staging-Unterordner. Ab dann funktionieren `copy_file` (Kopieren
 innerhalb von Drive) und `read_file_content`/Kommentare wieder normal,
-weil dabei kein neuer Binärinhalt durch meinen Kontext muss.
+weil dabei kein neuer Binärinhalt durch meinen Kontext muss. **Erneut geprüft am 24.07.2026:** Der Connector bietet weiterhin nur `base64Content`/`textContent`, keinen Datei-Pfad-Parameter und keinen Chunk-/Resumable-Upload — Workaround bleibt bestehen (siehe auch README.md, Abschnitt 5).
 
 1. Fertiges Bild + Caption-Textdatei in einen Staging-Unterordner
    `Ergebnisse/_Entwurf zur Freigabe/<Segment>-<Datum>-<Kurztitel>/` legen
