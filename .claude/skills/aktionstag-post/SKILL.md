@@ -66,8 +66,14 @@ Zugriff ist **ausschließlich** auf genau diese zwei Unterordner erlaubt:
 1. **Eingangs-Ordner** „**Fotos Aktionstage**" (Zwischenablage der per Mail
    eingegangenen Fotos):
    [Link](https://drive.google.com/drive/folders/1d3wvlAhieickno0yLJ1qkQGDiIdPUvcY)
-2. **Ergebnis-Ordner** „**Ergebnisse**" (fertige, freigegebene Posts/Stories):
-   [Link](https://drive.google.com/drive/folders/1_a2H3UiA6Ex3xS-HAPkQTWPrSutRG_Ec)
+2. **Ergebnis-Ordner** „**Ergebnisse**" (ursprünglich vorgesehen für fertige,
+   freigegebene Posts/Stories):
+   [Link](https://drive.google.com/drive/folders/1_a2H3UiA6Ex3xS-HAPkQTWPrSutRG_Ec) —
+   **seit 24.07.2026 nicht mehr das aktive Ziel für fertige Bilder** (siehe
+   Schritt 0a „Freigabe"): `Google_Drive create_file` kann keine Bild-Assets
+   entgegennehmen, daher lebt der Entwurf/das Ergebnis stattdessen im
+   Design-System-Projekt. Dieser Ordner bleibt nur als Referenz/Altlast
+   stehen, bis es einen technischen Weg gibt, dort wirklich Bilder abzulegen.
 
 Beide Unterordner sind identisch in vier Segment-Unterordner gegliedert:
 **Schule**, **Kita**, **Pflege**, **Projektmodul** (Ablage/Auslage jeweils
@@ -89,62 +95,62 @@ Google-Drive-Connectors, falls ein Ordner-Picker angeboten wird, dort auch
 technisch **nur diese zwei Ordner** auswählen/freigeben — nicht "gesamtes
 Drive" autorisieren. Verhalten *und* Berechtigung sollten beide eng sein.
 
-**Freigabe — per Drive-Kommentar, durch Rafael.** (Kommentar-Mechanismus
-getestet und bestätigt funktionsfähig am 23.07.2026 — das **Hochladen des
-fertigen Bildes selbst ist aktuell technisch blockiert**, siehe Kasten
-unten.)
+**Freigabe — im Design-System, durch Rafael, per Chat-Stichwort.** (Stand
+24.07.2026 — ersetzt den vorherigen Drive-Kommentar-Ansatz.)
 Der Gmail-Connector kann laut eigener Beschreibung nur Entwürfe anlegen,
 Threads zusammenfassen und das Postfach durchsuchen — **kein tatsächliches
-Versenden**. Die Freigabe läuft deshalb nicht per E-Mail, sondern über
-Google Drive:
+Versenden**. Google Drive wiederum kann von mir aus technisch **keine
+Bild-Assets entgegennehmen** (`create_file` verlangt den kompletten Inhalt
+inline als Text im Werkzeugaufruf — dafür sind Bilddateien immer zu groß,
+das ist kein Übungs-, sondern ein Architekturproblem). Beides ausführlich
+getestet am 23.07.2026, siehe Git-Historie dieser Datei.
 
-**⚠ Bekannte Blockade (Test vom 23.07.2026):** `Google_Drive create_file`
-verlangt den kompletten Dateiinhalt inline als Base64-Text im Werkzeugaufruf
-— es gibt (anders als bei `DesignSync write_files`) **keinen `localPath`-
-Parameter**, der direkt von der Festplatte liest. Bild-Base64 lässt sich
-extrem ineffizient tokenisieren: Schon eine stark komprimierte ~140-KB-JPEG-
-Version eines 1080×1920-Entwurfs ließ sich nicht mehr vollständig zurück in
-den Kontext lesen. **Ergebnis: Ich kann aktuell keine fertigen Bild-Assets
-selbst nach Google Drive hochladen.** Workaround, bis es einen
-`localPath`-fähigen Weg gibt: Ich liefere Bild + Caption direkt im Chat
-(`SendUserFile`) aus; Rafael oder Gunnar legt die Datei manuell in den
-Staging-Unterordner. Ab dann funktionieren `copy_file` (Kopieren
-innerhalb von Drive) und `read_file_content`/Kommentare wieder normal,
-weil dabei kein neuer Binärinhalt durch meinen Kontext muss. **Erneut geprüft am 24.07.2026:** Der Connector bietet weiterhin nur `base64Content`/`textContent`, keinen Datei-Pfad-Parameter und keinen Chunk-/Resumable-Upload — Workaround bleibt bestehen (siehe auch README.md, Abschnitt 5).
+**Update 24.07.2026:** Erneut geprüft — der Google-Drive-Connector bietet
+weiterhin nur `base64Content`/`textContent`, keinen Datei-Pfad-Parameter und
+keinen Chunk-/Resumable-Upload. Google Drive scheidet damit endgültig als
+Ablageort für fertige Bild-Assets aus.
 
-1. Fertiges Bild + Caption-Textdatei in einen Staging-Unterordner
-   `Ergebnisse/_Entwurf zur Freigabe/<Segment>-<Datum>-<Kurztitel>/` legen
-   (liegt innerhalb des bereits erlaubten Ergebnis-Ordners, kein neuer
-   Top-Level-Ordner). **Solange die Upload-Blockade oben besteht:** Ordner
-   selbst per `create_file` (Ordner brauchen keinen Inhalt) anlegen, Bild +
-   Caption aber per `SendUserFile` ausliefern und Rafael/Gunnar bitten, sie
-   von Hand in genau diesen Unterordner zu legen.
-2. Rafael öffnet die PNG-Datei in Drive (Doppelklick → Vorschau →
-   Sprechblasen-Symbol „Kommentar hinzufügen") und kommentiert mit einem
-   von zwei festen Stichworten:
-   - **„FREIGABE"** (Groß-/Kleinschreibung egal) → eindeutiges Go. Die Datei
-     (PNG + Caption) per `copy_file` zusätzlich in den passenden
-     Segment-Unterordner von „Ergebnisse" kopieren, danach **alle**
-     Original-Fotos dieses Aktionstages ins Design-System übernehmen (siehe
-     Schritt 6). Das Original im Staging-Unterordner bleibt technisch
-     liegen — `Google_Drive` hat kein Lösch-/Verschiebe-Werkzeug, nur
-     `copy_file`. Das ist reine Ablage-Unordnung (kein Datenschutzproblem)
-     und muss von Zeit zu Zeit von Hand aufgeräumt werden.
-   - **„Anpassung"** (irgendwo im Kommentartext) → **kein** Go. Stattdessen
-     in dieser laufenden Claude-Code-Sitzung (an die die Prüf-Routine
-     gebunden ist) mit vollem Kontext melden (Aktionstag, bisheriger
-     Entwurf, Rafaels Kommentartext), damit die Änderung interaktiv
-     besprochen werden kann — bei bloßem „Anpassung" ohne Details aktiv
-     nachfragen, was konkret nicht passt.
-   - Jeder andere Kommentartext (weder „FREIGABE" noch „Anpassung"): **nicht**
-     automatisch finalisieren, im Zweifel wie „Anpassung" behandeln und
-     nachfragen.
-3. Ich lese die Kommentare über `read_file_content` (Parameter
-   `includeComments`) aus — kein automatischer Push, das Auslesen passiert
-   bei jedem Postfach-/Freigabe-Check der Routine.
-4. Rafael gibt das Go — nicht Gunnar. Ohne „FREIGABE"-Kommentar: nichts in
-   den finalen Ergebnis-Unterordner kopieren, nichts ins Design-System
-   übernehmen, nichts an Dritte weitergeben.
+**Neue Aufteilung (siehe auch Punkt „Was wohin" unten):**
+- **Fotos (Original-Einsendung + alles vom Partner)** → weiterhin in die
+  Foto-Bibliothek **dieses** Design-System-Projekts
+  (`044c8b4b-076a-4543-930c-a3642c12b3fe`), wie in Schritt 6 beschrieben.
+- **Der fertige Post/die Story selbst** → **nicht** in dieses gemeinsame
+  Design-System-Projekt (das ist die geteilte Marken-Bibliothek, kein
+  Ablageort für einzelne Postings). Stattdessen legt `DesignSync
+  create_project` ein **eigenes, neues Design-Projekt** für genau diesen
+  Aktionstag-Post an — dort liegt der Entwurf, dort kann Rafael ihn direkt
+  in der Claude-Design-Oberfläche weiterbearbeiten, und dort gibt er auch
+  sein Go.
+
+**⚠ Bekannte Blockade beim Schreiben:** `DesignSync write_files` verlangt
+eine interaktive Autorisierung (`/design-login`), die eine im Hintergrund
+laufende Sitzung/Routine nicht selbst auslösen kann. Rafael/Gunnar muss
+einmalig in der Design-System-Oberfläche auf claude.ai eine Funktion wie
+„Send to Claude Code Web" nutzen, um einer Sitzung Schreibzugriff zu geben.
+Bis das erledigt ist, bleibt auch dieser Weg blockiert — dann bitte
+transparent melden statt einen Umweg über den Chat zu erzwingen.
+
+1. Sobald Schreibzugriff besteht: per `DesignSync create_project` ein
+   **neues, eigenständiges Projekt** für diesen Aktionstag-Post anlegen
+   (Name z. B. „Aktionstag <Segment> <Datum> <Kurztitel>"), dort Entwurf
+   (PNG + Caption-Textdatei) per `write_files` mit `localPath` ablegen.
+   Dieses neue Projekt ist Rafaels Arbeitsfläche — er kann es dort direkt
+   in der Claude-Design-Oberfläche weiterbearbeiten, es bleibt getrennt
+   von der gemeinsamen Marken-Bibliothek.
+2. **Freigabe-Signal:** Da das Design-System-Werkzeug (anders als Google
+   Drive) keine Kommentare zum Auslesen anbietet, gibt Rafael sein Go
+   stattdessen **per Chat-Nachricht** in der jeweils aktiven Sitzung:
+   - **„Freigabe"** (bzw. „Design Freigabe") → eindeutiges Go. Danach
+     Schritt 6 ausführen (nur die Fotos ins gemeinsame Design-System
+     übernehmen — der Post selbst bleibt im neuen Einzelprojekt aus
+     Schritt 1, nicht zusätzlich woanders ablegen).
+   - **„Anpassung" + was genau** → kein Go, stattdessen gemeinsam in genau
+     diesem Chat besprechen, was zu ändern ist, und das neue Projekt
+     entsprechend aktualisieren.
+   - Nur „Anpassung" ohne Details → aktiv nachfragen, was konkret nicht
+     passt, nicht raten.
+3. Rafael gibt das Go — nicht Gunnar. Ohne „Freigabe": nichts als final
+   markieren, nichts an Dritte weitergeben.
 
 ## 1. Pflichtangaben abfragen
 
@@ -229,9 +235,9 @@ an der Logo-Regel oben, ist aber für die Bildunterschrift/den Text relevant
 Personenbezogene Daten werden **in diesem Repo nicht gespeichert** — weder
 Namen noch andere identifizierende Angaben landen in Dateien dieses Repos.
 Nach Rafaels Freigabe (siehe Schritt 6) werden die Original-Fotos jedoch
-dauerhaft an zwei Stellen außerhalb des Repos abgelegt (Drive-Ordner
-„Ergebnisse" und Design-System-Fotobibliothek) — deshalb ist die
-Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
+dauerhaft in der Foto-Bibliothek des Design-System-Projekts abgelegt —
+deshalb ist die Einwilligung **vor** dieser Freigabe zwingend zu klären,
+nicht optional.
 
 - **Kita/Schule (Kinder):** Vor Veröffentlichung erkennbarer Kindergesichter
   muss die Einwilligung der Erziehungsberechtigten vorliegen (Recht am
@@ -281,35 +287,33 @@ Einwilligung **vor** dieser Freigabe zwingend zu klären, nicht optional.
 
 ## 6. Ausgabe — niemals automatisch posten
 
-1. Fertiges Bild aus dem Eingangs-Ordner-Lauf **zusammen mit dem
-   Caption-Text-Vorschlag** (siehe Schritt 5.4, immer beigefügt) in den
-   Staging-Unterordner `Ergebnisse/_Entwurf zur Freigabe/<Segment>-<Datum>-
-   <Kurztitel>/` legen (siehe Schritt 0a). Deutlich kennzeichnen: „Entwurf
-   zur Kontrolle — noch nicht final abgelegt, noch nicht ins
-   Design-System übernommen."
-2. Warten auf Rafaels Kommentar **„FREIGABE"** auf genau dieser Datei (siehe
-   Schritt 0a zum genauen Ablauf/Stichwörtern). Kein Finalisieren ohne
-   diesen Kommentar.
-3. Nach „FREIGABE": Ergebnis-PNG (und Caption als Textdatei) per `copy_file`
-   zusätzlich in den passenden Segment-Unterordner von „Ergebnisse"
-   ablegen — sonst nichts in Drive verändern.
-4. **Erst nach demselben „FREIGABE"-Kommentar** außerdem **alle** zu diesem
-   Aktionstag erhaltenen Original-Fotos (nicht nur die im Post verwendeten)
-   über `DesignSync` (`list_files` → `finalize_plan` → `write_files`) in den
-   zum Segment passenden Foto-Unterordner des Design-System-Projekts
-   (`044c8b4b-076a-4543-930c-a3642c12b3fe`) ablegen:
+1. Fertiges Bild **zusammen mit dem Caption-Text-Vorschlag** (siehe Schritt
+   5.4, immer beigefügt) in einem **neuen, eigenen Design-Projekt** ablegen
+   (`DesignSync create_project` + `write_files` mit `localPath`, siehe
+   Schritt 0a — solange die dortige Autorisierung fehlt: Blockade
+   transparent melden, nicht über den Chat ausliefern).
+2. Warten auf Rafaels **„Freigabe"** per Chat-Nachricht (siehe Schritt 0a).
+   Kein Finalisieren ohne dieses Wort.
+3. **Nach „Freigabe" — immer, ausnahmslos, beide Kategorien:**
+   - **Das/die eingesendete(n) Foto(s)** dieses Aktionstages (nicht nur das
+     im Post verwendete) UND
+   - **jedes vom Partner mitgeschickte Foto** (nicht nur ein Logo — falls
+     der Partner zusätzlich eigenes Bildmaterial schickt, auch das)
+
+   über `DesignSync` (`list_files` → `finalize_plan` → `write_files` mit
+   `localPath`) in den zum Segment passenden Foto-Unterordner des
+   Design-System-Projekts (`044c8b4b-076a-4543-930c-a3642c12b3fe`) ablegen:
    - Schule → `froachkids fotos/froachkids Fotos Schulaktionstage/`
    - Kita → `froachkids fotos/froachkids Kitaaktionstage/`
    - Pflege, Projektmodul → `froach Gesundheitstage/`
 
    Dateinamen sprechend, aber ohne Klarnamen abgebildeter Personen benennen
    (Einrichtung/Anlass/Kurzbeschreibung, analog zu bestehenden Dateien dort).
-   Ohne Zustimmung: **keine** Fotos ins Design-System übernehmen — dieselbe
-   Datenschutz-Logik wie beim Ergebnis-Ordner gilt hier ebenso, weil die
+   Ohne „Freigabe": **keine** Fotos ins Design-System übernehmen — dieselbe
+   Datenschutz-Logik wie beim Ergebnis-Bild gilt hier ebenso, weil die
    Foto-Bibliothek dauerhaft und projektübergreifend sichtbar ist.
-5. Eine tatsächliche Instagram-Veröffentlichung ist **nicht** Teil dieses
-   Skills — das Hochladen in den Ergebnis-Ordner und ins Design-System sind
-   die letzten Schritte.
+4. Eine tatsächliche Instagram-Veröffentlichung ist **nicht** Teil dieses
+   Skills — die Ablage im Design-System ist der letzte Schritt.
 
 ## Sprache
 
