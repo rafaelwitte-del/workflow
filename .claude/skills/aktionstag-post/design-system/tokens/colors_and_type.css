@@ -1,0 +1,266 @@
+/* ============================================================
+   relax & froach — Colors & Type
+   Tokens for the 2023 "New" Branding Guide.
+   ============================================================ */
+
+/* Brand Fonts — local variable fonts (primary) */
+/* CDN fallback for contexts where local files aren't reachable */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('assets/fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caveat';
+  src: url('assets/fonts/Caveat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------- BRAND COLORS (2023 New Hue) ---------- */
+
+  /* Primary blues — the froach "corporate" spine */
+  --rf-brand-blue:       #044894; /* Brand Blue — main logo color */
+  --rf-dark-blue:        #053570; /* Dark Blue — large dark surfaces */
+  --rf-heavy-blue:       #001E41; /* Heavy Blue — deepest navy, headlines on light */
+  --rf-blue-3:           #004A84; /* Blue 3 — alt primary */
+
+  /* Relax-mode blues — more saturated, screen-forward */
+  --rf-relax-blue:       #0275F2; /* Relax Blue — links, bright accents */
+  --rf-cmyk-relax-blue:  #3E71B8; /* CMYK Relax Blue — print-safe alt */
+  --rf-capri-blue:       #43B3EF; /* Capri Blue — link color, light backgrounds */
+  --rf-iced-blue:        #A3DFFF; /* Iced Blue — highlights */
+  --rf-iced-blue-50:     #E9F5FF; /* Iced Blue 50 — backgrounds */
+  --rf-iced-blue-25:     #F6FBFF; /* Iced Blue 25 — subtle surfaces */
+
+  /* Greens — the "froach" spark */
+  --rf-froach-green:     #94CE0E; /* froach Green — brand accent, hand-leaf */
+  --rf-light-green:      #BCF240; /* Light Green — RGB only, never CMYK */
+
+  /* Warms — alerts & highlights */
+  --rf-bittersweet:      #FF735A; /* Bittersweet — errors, numeric callouts */
+  --rf-soft-bittersweet: #FFC3B8; /* Soft Bittersweet — bg for warm accents */
+  --rf-mustard:          #FAD26B; /* Mustard — highlights (stabilo) */
+
+  /* Neutrals */
+  --rf-white:            #FFFFFF;
+  --rf-dark-grey:        #213E79; /* Dark Grey — actually a deep blue */
+  --rf-light-grau:       #9DB6D2; /* Light Grau — secondary body, blue-tinted */
+
+  /* ---------- SEMANTIC TOKENS ---------- */
+
+  /* Surfaces */
+  --rf-surface:          var(--rf-white);
+  --rf-surface-muted:    var(--rf-iced-blue-25);
+  --rf-surface-subtle:   var(--rf-iced-blue-50);
+  --rf-surface-dark:     var(--rf-dark-blue);
+  --rf-surface-darkest:  var(--rf-heavy-blue);
+
+  /* Foreground / text */
+  --rf-fg:               var(--rf-heavy-blue);      /* primary body on light */
+  --rf-fg-muted:         var(--rf-dark-grey);       /* secondary body on light */
+  --rf-fg-subtle:        var(--rf-light-grau);      /* tertiary / metadata */
+  --rf-fg-on-dark:       var(--rf-white);
+  --rf-fg-on-dark-muted: rgba(255, 255, 255, 0.75);
+  --rf-fg-on-dark-subtle: rgba(255, 255, 255, 0.55);
+
+  /* Accents */
+  --rf-accent:           var(--rf-froach-green);
+  --rf-accent-soft:      var(--rf-light-green);
+
+  /* Links — SemiBold + underline per guideline */
+  --rf-link:             var(--rf-capri-blue);
+  --rf-link-on-dark:     var(--rf-capri-blue);
+  --rf-link-hover:       var(--rf-relax-blue);
+
+  /* Signals */
+  --rf-error:            var(--rf-bittersweet);
+  --rf-error-soft:       var(--rf-soft-bittersweet);
+  --rf-warning:          var(--rf-mustard);
+  --rf-success:          var(--rf-froach-green);
+  --rf-info:             var(--rf-capri-blue);
+
+  /* Overlay for photography (spec'd in branding guide) */
+  --rf-photo-overlay: linear-gradient(
+    rgba(0, 57, 124, 0.8) 0%,
+    rgba(0, 30, 65, 0.8) 100%
+  ); /* @kind color */
+  --rf-photo-overlay-strong: linear-gradient(
+    rgba(0, 57, 124, 0.9) 0%,
+    rgba(0, 30, 65, 0.9) 100%
+  ); /* @kind color */
+
+  /* ---------- TYPE FAMILIES ---------- */
+  --rf-font-sans:    "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --rf-font-script:  "Caveat", "Brush Script MT", cursive;
+  /* Note: the wordmark uses a custom typeface close to Montserrat
+     but with rounded terminals; use the PNG/SVG logo asset itself. */
+
+  /* ---------- TYPE SCALE (@ 1920×1080 base) ----------
+     The brand uses Montserrat Light very heavily for body,
+     SemiBold for emphasis, Bold for display. Generous line-heights. */
+  --rf-fs-display:    72px;  /* Montserrat Bold — hero headlines */
+  --rf-fs-h1:         48px;  /* Montserrat Bold — page titles */
+  --rf-fs-h2:         36px;  /* Montserrat SemiBold — section titles */
+  --rf-fs-h3:         24px;  /* Montserrat SemiBold — card titles */
+  --rf-fs-lead:       22px;  /* Montserrat Light — intro paragraphs */
+  --rf-fs-body:       18px;  /* Montserrat Regular — body */
+  --rf-fs-body-sm:    16px;  /* Montserrat Medium — dense copy */
+  --rf-fs-caption:    14px;  /* Montserrat Medium — labels */
+  --rf-fs-micro:      12px;  /* Montserrat Medium — meta */
+  --rf-fs-script:     36px;  /* Caveat Regular — handwritten notes */
+
+  --rf-lh-tight:      1.1;  /* @kind font */
+  --rf-lh-display:    1.15; /* @kind font */
+  --rf-lh-snug:       1.3;  /* @kind font */
+  --rf-lh-body:       1.4;  /* @kind font */
+  --rf-lh-relaxed:    1.6;  /* @kind font */
+
+  --rf-ls-tight:      -0.01em;
+  --rf-ls-normal:     0;       /* @kind spacing */
+  --rf-ls-wide:       0.04em;
+
+  /* ---------- RADII ---------- */
+  --rf-radius-xs:     4px;
+  --rf-radius-sm:     8px;
+  --rf-radius-md:     13px;  /* hero cards in branding guide */
+  --rf-radius-lg:     17px;  /* logo-protection capsules */
+  --rf-radius-pill:   999px;
+  --rf-radius-arch:   50% 50% 0 0 / 30% 30% 0 0; /* the segment arches */
+
+  /* ---------- SHADOWS ---------- */
+  --rf-shadow-sm:     0 2px 6px rgba(1, 51, 78, 0.08);
+  --rf-shadow-md:     0 4px 17px rgba(1, 51, 78, 0.10);
+  --rf-shadow-lg:     0 8px 28px rgba(1, 51, 78, 0.14);
+  --rf-shadow-badge:  0 3.4px 12.8px rgba(148, 206, 14, 0.35);
+  --rf-shadow-inset:  inset 0 0 0 1px rgba(4, 72, 148, 0.08);
+
+  /* ---------- SPACING ---------- */
+  --rf-sp-1:  4px;
+  --rf-sp-2:  8px;
+  --rf-sp-3:  12px;
+  --rf-sp-4:  16px;
+  --rf-sp-5:  24px;
+  --rf-sp-6:  32px;
+  --rf-sp-7:  48px;
+  --rf-sp-8:  64px;
+  --rf-sp-9:  96px;
+  --rf-sp-10: 128px;
+
+  /* ---------- MOTION ----------
+     froach animations are gentle — fades, soft eases, no bounce */
+  --rf-ease-out:     cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --rf-ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);    /* @kind other */
+  --rf-dur-fast:     150ms; /* @kind other */
+  --rf-dur-base:     250ms; /* @kind other */
+  --rf-dur-slow:     400ms; /* @kind other */
+}
+
+/* ============================================================
+   SEMANTIC ELEMENTS
+   ============================================================ */
+
+html { font-family: var(--rf-font-sans); color: var(--rf-fg); }
+body { margin: 0; background: var(--rf-surface); color: var(--rf-fg); font-family: var(--rf-font-sans); font-size: var(--rf-fs-body); line-height: var(--rf-lh-body); -webkit-font-smoothing: antialiased; }
+
+h1, .rf-h1 {
+  font-family: var(--rf-font-sans);
+  font-weight: 700;
+  font-size: var(--rf-fs-h1);
+  line-height: var(--rf-lh-display);
+  letter-spacing: var(--rf-ls-tight);
+  color: var(--rf-heavy-blue);
+  margin: 0 0 0.5em;
+}
+h2, .rf-h2 {
+  font-family: var(--rf-font-sans);
+  font-weight: 600;
+  font-size: var(--rf-fs-h2);
+  line-height: var(--rf-lh-snug);
+  color: var(--rf-heavy-blue);
+  margin: 0 0 0.4em;
+}
+h3, .rf-h3 {
+  font-family: var(--rf-font-sans);
+  font-weight: 600;
+  font-size: var(--rf-fs-h3);
+  line-height: var(--rf-lh-snug);
+  color: var(--rf-heavy-blue);
+  margin: 0 0 0.3em;
+}
+.rf-display {
+  font-family: var(--rf-font-sans);
+  font-weight: 700;
+  font-size: var(--rf-fs-display);
+  line-height: var(--rf-lh-display);
+  letter-spacing: var(--rf-ls-tight);
+  color: var(--rf-heavy-blue);
+}
+.rf-lead {
+  font-family: var(--rf-font-sans);
+  font-weight: 300;
+  font-size: var(--rf-fs-lead);
+  line-height: var(--rf-lh-body);
+  color: var(--rf-fg-muted);
+}
+p, .rf-body {
+  font-family: var(--rf-font-sans);
+  font-weight: 400;
+  font-size: var(--rf-fs-body);
+  line-height: var(--rf-lh-body);
+  color: var(--rf-fg);
+  margin: 0 0 1em;
+}
+.rf-caption {
+  font-family: var(--rf-font-sans);
+  font-weight: 500;
+  font-size: var(--rf-fs-caption);
+  line-height: var(--rf-lh-snug);
+  color: var(--rf-fg-muted);
+}
+.rf-eyebrow {
+  font-family: var(--rf-font-sans);
+  font-weight: 500;
+  font-size: var(--rf-fs-micro);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: var(--rf-ls-wide);
+  color: var(--rf-fg-muted);
+}
+.rf-script {
+  font-family: var(--rf-font-script);
+  font-weight: 400;
+  font-size: var(--rf-fs-script);
+  line-height: 1;
+  color: var(--rf-heavy-blue);
+}
+
+/* Links — Semibold underlined Capri Blue per Branding Guide 2023 */
+a, .rf-link {
+  color: var(--rf-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--rf-dur-fast) var(--rf-ease-out);
+}
+a:hover, .rf-link:hover { color: var(--rf-link-hover); }
+
+/* On dark surfaces */
+.on-dark { color: var(--rf-fg-on-dark); }
+.on-dark h1, .on-dark h2, .on-dark h3, .on-dark .rf-display, .on-dark p { color: var(--rf-fg-on-dark); }
+.on-dark .rf-lead { color: var(--rf-fg-on-dark-muted); }
+.on-dark .rf-caption, .on-dark .rf-eyebrow { color: var(--rf-fg-on-dark-subtle); }
+.on-dark a, .on-dark .rf-link { color: var(--rf-capri-blue); }

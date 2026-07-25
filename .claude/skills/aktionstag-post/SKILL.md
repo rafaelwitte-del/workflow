@@ -13,19 +13,52 @@ automatisch veröffentlicht oder gepostet.
 
 ## 0. Quelle des Corporate Designs
 
-Das Branding liegt **nicht** in diesem Repo, sondern im Claude-Design-Projekt
-„relax & froach Design System" (projectId `044c8b4b-076a-4543-930c-a3642c12b3fe`).
-Bei jedem Lauf über das `DesignSync`-Tool aktuell einlesen (nicht aus dem
-Gedächtnis rekonstruieren, das Projekt kann sich ändern):
+**Primärquelle — lokal gebündelter Handoff-Snapshot (seit 25.07.2026).**
+`DesignSync` verlangt für Lese- **und** Schreibzugriff eine interaktive
+Autorisierung (`/design-login` bzw. „Send to Claude Code Web"), die eine
+Hintergrund-Session nicht selbst auslösen kann (s. Abschnitt 0a). Damit das
+Branding trotzdem ohne diese Autorisierung nutzbar ist, liegt ein Export des
+Claude-Design-Projekts „relax & froach Design System"
+(projectId `044c8b4b-076a-4543-930c-a3642c12b3fe`) direkt in diesem Repo unter
+[`design-system/`](design-system/):
 
-1. `get_project` → prüfen, dass es weiterhin `type: PROJECT_TYPE_DESIGN_SYSTEM` ist.
-2. `get_file README.md` und `get_file CLAUDE.md` → aktuelle Markenregeln lesen.
-3. `get_file colors_and_type.css` → Farb-/Typografie-Tokens.
-4. Je nach Segment (siehe Schritt 2) die passenden Logo-/Foto-/Illustrations-
-   Dateien aus `assets/` bzw. den Fotoordnern per `get_file` ziehen.
+```
+design-system/tokens/colors_and_type.css        Farb-/Typo-/Radius-/Schatten-/Spacing-Tokens
+design-system/components/Logo.jsx|.d.ts         <Logo> / <LogoMark> / <LogoCircle>
+design-system/components/Components.jsx|.d.ts   Icon, TopNav, Hero, SegmentCards, Features, Footer
+design-system/assets/logos/                     logo-primary.png, froachkids-lockup.png, hand-*.svg, ampersand-blue.svg
+design-system/assets/fonts/                     Montserrat (Variable + Italic), Caveat (Variable)
+design-system/reference/                        DESIGN_SYSTEM_README.md, PROJECT_RULES.md, marketing-kit.html
+design-system/README.md                         Handoff-Übersicht/Änderungshinweise
+```
 
-Es gilt ausschließlich der Branding Guide **„New" / „2023"** (siehe README des
-Design-Systems). Ältere Guides ignorieren.
+Bei jedem Lauf zuerst `design-system/README.md` und
+`design-system/reference/PROJECT_RULES.md` lesen (aktuelle Marken-/Logo-Regeln,
+nicht aus dem Gedächtnis rekonstruieren), dann `design-system/tokens/colors_and_type.css`
+für die Tokens. Es gilt ausschließlich der Branding Guide **„New" / „2023"**.
+
+**Lücke — was in diesem Snapshot bewusst fehlt.** Laut
+`design-system/README.md` Abschnitt „Assets, die nicht im Paket sind": die
+138 froach-Icons, 49 Maskottchen-Posen, 54 Maskottchen-Szenen, Illustrationen,
+Hero-Fotos und die Foto-Bibliotheken der Aktionstage (`froachkids fotos/`,
+`froach Gesundheitstage/`). Für Farben/Typo/Logos (das Nötigste für Schritt 5)
+reicht der Snapshot. Falls ein Post ein Icon oder eine Maskottchen-Pose
+braucht: **falls `DesignSync` in der aktuellen Session bereits autorisiert
+ist**, gezielt per `get_file` nachladen; sonst beim Nutzer nachfragen bzw. auf
+das Icon/die Pose verzichten und das transparent im Entwurf vermerken.
+
+**Snapshot aktuell halten.** Dieser Ordner ist ein statischer Export vom
+25.07.2026, kein Live-Spiegel. Ändert sich das Branding im Design-System-Projekt
+(neue Tokens, neues Logo etc.), muss der Nutzer einen frischen Export
+(Zip-Export aus der Design-System-Oberfläche) bereitstellen, der dann hier
+ersetzt wird — sonst arbeitet dieser Skill mit veraltetem Branding weiter,
+ohne das zu merken.
+
+**Falls doch live-autorisiert:** Ist `DesignSync` in einer laufenden Session
+tatsächlich für das Projekt autorisiert (z. B. weil der Nutzer „Send to Claude
+Code Web" ausgelöst hat), ist der Live-Stand über `get_project`/`get_file`
+immer verbindlicher als dieser lokale Snapshot — bei Widerspruch die Live-Daten
+verwenden und den Snapshot-Ordner bei Gelegenheit aktualisieren.
 
 ## 0a. Auslöser, Zugriffsgrenzen und Freigabeweg
 

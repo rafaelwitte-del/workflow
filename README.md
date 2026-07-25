@@ -62,6 +62,24 @@ bestätigt):**
 3. **Claude Cowork:** ebenfalls getestet, löst das Problem nicht — gleiche
    Upload-Einschränkung wie in Claude Code.
 
+**Update 25.07.2026 — Leseseite entschärft, Schreibseite weiterhin offen.**
+Gunnar hat einen Zip-Export des Design-System-Projekts bereitgestellt (statt
+der blockierten interaktiven Autorisierung). Der Export liegt jetzt lokal
+unter [`.claude/skills/aktionstag-post/design-system/`](.claude/skills/aktionstag-post/design-system/)
+(Tokens, Logo-Assets inkl. `froachkids-lockup.png`, Fonts,
+Referenz-Komponenten). Damit kann der Skill **Schritt 0** (Branding lesen)
+jetzt ohne Live-`DesignSync`-Autorisierung erledigen — das war zuvor nur
+lesend möglich, wenn eine Session zufällig schon Zugriff hatte.
+
+Das ändert **nichts** an Blockade 2 oben: Neue Design-Projekte pro Post
+anlegen (Schritt 0a.1) und freigegebene Original-Fotos in die gemeinsame
+Foto-Bibliothek zurückschreiben (Schritt 6) sind **Schreib**-Operationen und
+bleiben ohne „Send to Claude Code Web"-Autorisierung blockiert. Der Zip-Export
+ist außerdem ein **statischer Snapshot vom 25.07.2026** — kein Live-Spiegel;
+bei Branding-Änderungen muss Gunnar einen neuen Export nachliefern (Details
+und Lücken-Hinweise in `design-system/README.md` und Abschnitt „0" des
+Skills).
+
 **Wichtige Klarstellung (24.07.2026):** Der fertige Post/die Story landet
 **nicht** im gemeinsamen Design-System-Projekt „relax & froach Design
 System" — das bleibt die geteilte Marken-Bibliothek. Stattdessen legt
@@ -150,13 +168,17 @@ Chat zugeschickt. Die 2×-tägliche Mail-Prüfung (Routine, Cron
 `0 10,16 * * *` UTC = 12:00/18:00 Uhr MESZ) ist eingerichtet — offen ist
 noch:
 
-1. **Wichtigster offener Punkt:** Rafael/Gunnar muss einmalig „Send to
-   Claude Code Web" aus der Design-System-Oberfläche auf claude.ai
-   auslösen, damit ich Schreibzugriff auf das Design-System bekomme — ohne
-   das kann weder ein neues Einzelprojekt für einen Post angelegt noch
-   etwas in die gemeinsame Foto-Bibliothek geschrieben werden (siehe
-   Abschnitt 1). Google Drive ist dagegen endgültig raus (s. o.), da hilft
-   auch keine erneute Prüfung mehr.
+1. **Wichtigster offener Punkt (nur noch Schreibseite):** Rafael/Gunnar muss
+   einmalig „Send to Claude Code Web" aus der Design-System-Oberfläche auf
+   claude.ai auslösen, damit ich Schreibzugriff auf das Design-System
+   bekomme — ohne das kann weder ein neues Einzelprojekt für einen Post
+   angelegt noch etwas in die gemeinsame Foto-Bibliothek geschrieben werden
+   (siehe Abschnitt 1). Die Leseseite (Branding/Tokens/Logos) ist seit
+   25.07.2026 durch den lokalen Zip-Snapshot in
+   `.claude/skills/aktionstag-post/design-system/` entschärft (s. o.) — bleibt
+   aber ein statischer Stand, kein Ersatz für die Schreib-Autorisierung.
+   Google Drive ist dagegen endgültig raus (s. o.), da hilft auch keine
+   erneute Prüfung mehr.
 2. **Winterzeit-Umstellung (Sonntag, 25.10.2026, 3:00 → 2:00 Uhr):** Der
    Cron `0 10,16 * * *` (UTC) läuft ab diesem Zeitpunkt real zu 11:00/17:00
    Uhr MEZ statt 12:00/18:00 Uhr — die UTC-Zeit bleibt gleich, nur die
