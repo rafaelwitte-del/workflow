@@ -74,15 +74,23 @@ Gunnar (`gunnar.reinhardt@froach.de`), sondern das Postfach von Rafael
 - Kein Sofort-Trigger bei Mail-Eingang möglich — stattdessen **zeitgesteuerte
   Prüfung 2× täglich, 12:00 und 18:00 Uhr**. Bei jedem Lauf: seit dem letzten
   Lauf neu eingegangene Mails an diese Adresse sichten.
-- **Betreff-Filter — nicht das ganze Postfach scannen.** Nur E-Mails
-  berücksichtigen, deren Betreff (tolerant, kein stures 1:1-Match) etwas wie
-  „**Fotos in Aktion für Social Media**" enthält — Wortlaut kann leicht
-  variieren (z. B. „Fotos Aktion Socialmedia", „Fotos SM"), Kernbegriffe sind
-  **„Fotos"** + **„Aktion"** + **„Social Media"/"Socialmedia"/"SM"**. E-Mails
-  ohne dieses Muster im Betreff werden ignoriert, auch wenn sie
-  Foto-Anhänge haben. Das gilt auch, weil dasselbe Postfach zusätzlich die
-  Entwurfs-/Freigabe-Mails (s. u.) empfängt — die Betreff-Filterung trennt
-  eingehende Fotoeinsendungen zuverlässig von diesem eigenen Mailverkehr.
+- **Betreff-Filter — nicht das ganze Postfach scannen (erweitert 25.07.2026).**
+  Ursprünglich wurden nur Betreffe mit allen drei Kernbegriffen „Fotos" +
+  „Aktion" + „Social Media" gewertet — das war zu eng: reale Einsendungen kamen
+  mit dem kürzeren Betreff **„Social Media"** an und wurden dadurch ignoriert.
+  Jetzt reicht **einer** der folgenden Begriffe im Betreff (tolerant, kein
+  stures 1:1-Match, Groß-/Kleinschreibung egal):
+  **„Social Media"** / **„Socialmedia"** / **„SM"** / „Fotos in Aktion" /
+  „Fotos Aktion".
+  Damit eine so breit gefasste Regel nicht versehentlich die eigenen
+  Entwurfs-/Freigabe-Mails im selben Postfach mit erfasst, gilt zusätzlich:
+  nur werten, wenn die Mail (a) **mindestens einen Bildanhang** hat **und**
+  (b) **nicht** von einer Adresse innerhalb der eigenen Organisation stammt,
+  die erkennbar der Skill selbst verwendet (z. B. eigene Entwurfs-Betreffe wie
+  „Entwurf Aktionstag …" oder „Freigabe …" — diese werden weiterhin
+  ausgeschlossen, unabhängig vom Social-Media-Treffer). E-Mails ohne
+  Bildanhang werden ignoriert, auch wenn der Betreff passt — reiner Text ist
+  nie eine Fotoeinsendung.
 - **Explizit NICHT unterstützt:** die Chat-/Spaces-Funktion innerhalb von
   Gmail (Google Chat). Das ist eine eigene Google-API mit eigenen
   Berechtigungen, kein Bestandteil des Gmail-Connectors, und es existiert
