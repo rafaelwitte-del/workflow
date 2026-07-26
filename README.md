@@ -19,32 +19,44 @@ zur Kontrolle, nicht zur automatischen Veröffentlichung.
 
 ```
 Externe E-Mail-Adresse (nicht Gunnars Konto)
-   — Fotos + Sponsor/Datum/Infos im Mailtext —
+   — Fotos + Sponsor/Datum/Infos im Mailtext, Betreff „Social Media" o.ä. —
         │
         ▼   (zeitgesteuerte Prüfung: 12:00 & 18:00 Uhr, kein Sofort-Trigger)
 Skill „aktionstag-post" (.claude/skills/aktionstag-post/SKILL.md)
-        │  1. Foto(s) in Drive-Eingangs-Ordner ablegen (nur dieser eine Ordner)
-        │  2. Corporate Design live aus dem Claude-Design-Projekt
-        │     „relax & froach Design System" lesen
-        │  3. Entwurf bauen: Instagram-Post oder -Story (PNG) + Caption
+        │  1. Branding aus lokalem Design-System-Snapshot lesen
+        │     (.claude/skills/aktionstag-post/design-system/, s. u.)
+        │  2. Entwurf bauen: Instagram-Post oder -Story (PNG) + Caption
         ▼
-Entwurf in einem NEUEN, eigenen Design-Projekt „Aktionstag <Segment>
-<Datum> ..." — Rafael kann dort direkt weiterarbeiten
+Gmail-Entwurf im selben Postfach (rafael.witte@froach.de) —
+Bild als Anhang, Caption im Mailtext. Rafael sieht/nutzt ihn direkt in
+seinen Gmail-Entwürfen — das ist die eigentliche Ausgabe, fertig.
         │
-        ▼   (erst nach Rafaels „Freigabe" per Chat-Nachricht)
+        ▼   (nur für die dauerhafte Archivierung, erst nach Rafaels
+             „Freigabe" per Chat-Nachricht — separat vom Gmail-Entwurf)
 Original-Foto(s) des Aktionstages UND jedes vom Partner mitgeschickte Foto
-werden dauerhaft in die Foto-Bibliothek des GEMEINSAMEN Design-System-
-Projekts übernommen (der Post selbst bleibt im neuen Einzelprojekt)
+werden in die Foto-Bibliothek des GEMEINSAMEN Design-System-Projekts
+übernommen (aktuell noch blockiert, s. Abschnitt 5)
 ```
 
-**Hinweis zum Freigabeweg (Stand 24.07.2026):** Der Gmail-Connector kann
-laut eigener Beschreibung nur Entwürfe anlegen, Threads zusammenfassen und
-das Postfach durchsuchen — **kein tatsächliches Versenden**. Google Drive
-wiederum kann von mir aus **keine Bild-Assets entgegennehmen** — dazu unten
-mehr. Deshalb läuft alles über das **Design-System-Projekt**: Der Entwurf
-wird dort abgelegt, Rafael sieht ihn direkt in der Design-System-Ansicht
-und gibt sein Go **per Chat-Nachricht mit dem Wort „Freigabe"** (nicht per
-Kommentar, da das Design-System-Werkzeug keine Kommentare ausliest).
+**Update 25.07.2026 — Ausgabeweg vereinfacht.** Der ursprünglich geplante Weg
+(ein neues Design-Projekt pro Post via `DesignSync create_project`) wurde
+verworfen: Er hätte bei **jedem einzelnen Post** die blockierte interaktive
+Design-System-Autorisierung gebraucht (s. Abschnitt 5) und niemand konnte
+garantieren, dass die vorher immer erledigt ist. Stattdessen legt der Skill
+den fertigen Post jetzt als **Gmail-Entwurf** im selben, bereits
+autorisierten Postfach ab (`Gmail create_draft`) — kein
+Design-System-Schreibzugriff mehr nötig für den Post selbst. Nur das
+optionale, dauerhafte Archivieren der Original-Fotos in der gemeinsamen
+Bibliothek bleibt ein Design-System-Schreibvorgang und damit vorerst
+blockiert (s. Abschnitt 5).
+
+**Kontext/Kosten:** Damit die Sitzung(en), in denen dieser Workflow läuft,
+nicht über viele Aktionstage hinweg unbegrenzt anwachsen (mehr Tokens pro
+Antwort, irgendwann automatische Kontext-Kompression), wird nach jedem
+abgeschlossenen Lauf die Konversation zurückgesetzt (`/clear` bzw. neue
+Sitzung) — unkritisch, weil alle verbindlichen Regeln in diesem Repo stehen
+und bei jedem Lauf frisch aus den Dateien gelesen werden, nicht aus dem
+Chat-Verlauf.
 
 **⚠ Zwei nacheinander entdeckte Blockaden (23.–24.07.2026, am 24.07. erneut
 bestätigt):**
@@ -58,56 +70,46 @@ bestätigt):**
    Hintergrund-Sitzung nicht selbst auslösen kann. Rafael/Gunnar muss
    einmalig über die Design-System-Oberfläche auf claude.ai eine Funktion
    wie „Send to Claude Code Web" nutzen, um einer Sitzung Schreibzugriff zu
-   geben — bis dahin bleibt auch dieser Weg blockiert.
+   geben — bis dahin bleibt auch dieser Weg blockiert. **Seit 25.07.2026
+   betrifft das nur noch das Archivieren der Original-Fotos** (s. u.) — der
+   Post selbst braucht das nicht mehr (s. „Ausgabeweg vereinfacht" oben).
 3. **Claude Cowork:** ebenfalls getestet, löst das Problem nicht — gleiche
    Upload-Einschränkung wie in Claude Code.
 
-**Update 25.07.2026 — Leseseite entschärft, Schreibseite weiterhin offen.**
+**Update 25.07.2026 — Branding-Lesezugriff entschärft.**
 Gunnar hat einen Zip-Export des Design-System-Projekts bereitgestellt (statt
 der blockierten interaktiven Autorisierung). Der Export liegt jetzt lokal
 unter [`.claude/skills/aktionstag-post/design-system/`](.claude/skills/aktionstag-post/design-system/)
 (Tokens, Logo-Assets inkl. `froachkids-lockup.png`, Fonts,
 Referenz-Komponenten). Damit kann der Skill **Schritt 0** (Branding lesen)
-jetzt ohne Live-`DesignSync`-Autorisierung erledigen — das war zuvor nur
-lesend möglich, wenn eine Session zufällig schon Zugriff hatte.
-
-Das ändert **nichts** an Blockade 2 oben: Neue Design-Projekte pro Post
-anlegen (Schritt 0a.1) und freigegebene Original-Fotos in die gemeinsame
-Foto-Bibliothek zurückschreiben (Schritt 6) sind **Schreib**-Operationen und
-bleiben ohne „Send to Claude Code Web"-Autorisierung blockiert. Der Zip-Export
-ist außerdem ein **statischer Snapshot vom 25.07.2026** — kein Live-Spiegel;
-bei Branding-Änderungen muss Gunnar einen neuen Export nachliefern (Details
-und Lücken-Hinweise in `design-system/README.md` und Abschnitt „0" des
-Skills).
-
-**Wichtige Klarstellung (24.07.2026):** Der fertige Post/die Story landet
-**nicht** im gemeinsamen Design-System-Projekt „relax & froach Design
-System" — das bleibt die geteilte Marken-Bibliothek. Stattdessen legt
-`DesignSync create_project` für **jeden Aktionstag-Post ein eigenes, neues
-Design-Projekt** an, das Rafael dort direkt weiterbearbeiten kann. Nur die
-Original-Fotos (Einsendung + alles vom Partner) wandern nach „Freigabe" in
-die Foto-Bibliothek des gemeinsamen Design-System-Projekts.
-
-Das eigentliche Corporate Design (Farben, Logos, Maskottchen „Froach",
-Partner-Logos, Fotos) liegt **nicht** in diesem Repo, sondern bleibt
-zentral im Claude-Design-Projekt *„relax & froach Design System"* — das
-Skill liest es bei jedem Lauf aktuell aus, statt es zu duplizieren.
+jetzt ohne Live-`DesignSync`-Autorisierung erledigen. Der Zip-Export ist ein
+**statischer Snapshot vom 25.07.2026** — kein Live-Spiegel; bei
+Branding-Änderungen muss Gunnar einen neuen Export nachliefern (Details und
+Lücken-Hinweise in `design-system/README.md` und Abschnitt „0" des Skills).
+Das ändert nichts daran, dass das **Archivieren der freigegebenen
+Original-Fotos** in die gemeinsame Bibliothek weiterhin ein
+Design-System-**Schreib**vorgang ist und ohne „Send to Claude Code
+Web"-Autorisierung blockiert bleibt.
 
 ## 2. Auslöser (Trigger) — aktueller Stand
 
 Festgelegt: Eingang über eine **externe E-Mail-Adresse** (`rafael.witte@froach.de`,
 nicht Gunnars eigenes Konto), geprüft **2× täglich um 12:00 und 18:00 Uhr**,
-nur E-Mails mit passendem Betreff-Muster (s. u.). Freigabe läuft **per
-Chat-Nachricht „Freigabe" von Rafael**, danach Ablage **im
-Design-System-Projekt** (nicht mehr in Google Drive — s. o.).
+nur E-Mails mit passendem Betreff-Muster (s. u.). Der fertige Post landet
+**als Gmail-Entwurf im selben Postfach** (s. Abschnitt 1) — dafür ist keine
+Freigabe nötig, das ist bereits die Ausgabe. Nur für das **zusätzliche,
+dauerhafte Archivieren** der Original-Fotos in der gemeinsamen
+Design-System-Bibliothek gibt Rafael sein Go **per Chat-Nachricht
+„Freigabe"**.
 
 | Baustein | Status | Was noch nötig ist |
 |---|---|---|
 | **Chat-Nachricht in einer Claude-Code-Session** | ✅ funktioniert direkt | Nichts — Fotos + Infos hier reinschreiben, Skill wird automatisch erkannt. |
 | **E-Mail-Eingang (externe Adresse)** | ✅ Gmail-Connector aktiv, verbunden mit `rafael.witte@froach.de` (externes Konto, getrennt von Gunnars eigenem); Routine mit Cron `0 10,16 * * *` (UTC) = 12:00/18:00 Uhr MESZ eingerichtet | Betreff-Filter seit 25.07.2026 gelockert: „Social Media"/„Socialmedia"/„SM"/„Fotos in Aktion" reichen einzeln (vorher waren alle drei Kernbegriffe zusammen nötig — das hat zwei echte Einsendungen mit dem kürzeren Betreff „Social Media" verpasst). Zum Ausgleich zählt nur noch, wer **Bildanhang** hat und nicht wie eine eigene Entwurfs-/Freigabe-Mail aussieht. |
+| **Gmail-Entwurf als Post-Ausgabe** | ✅ seit 25.07.2026 — nutzt dieselbe, bereits autorisierte Gmail-Verbindung | Nichts — braucht keine zusätzliche Autorisierung. |
 | **Google Chat / Spaces** | ⛔ nicht möglich | Kein Connector vorhanden, eigene Google-API — bewusst **nicht** Teil dieses Workflows (s. Diskussion). |
 | **Google Drive** | ⛔ als Ablageort für fertige Bilder ausgeschieden | `create_file` kann keine Bild-Assets entgegennehmen (s. o.) — Drive wird für diesen Workflow nicht mehr aktiv genutzt. |
-| **Design-System-Projekt (Ablage + Freigabe)** | 🟡 Lesen funktioniert, Schreiben blockiert | Rafael/Gunnar muss einmalig „Send to Claude Code Web" aus der Design-System-Oberfläche auslösen, um Schreibzugriff zu autorisieren. |
+| **Design-System-Projekt (nur noch Foto-Archivierung)** | 🟡 Lesen (Branding) funktioniert über lokalen Snapshot, Schreiben (Foto-Archiv) blockiert | Rafael/Gunnar muss einmalig „Send to Claude Code Web" aus der Design-System-Oberfläche auslösen, um Schreibzugriff zu autorisieren. Betrifft nicht mehr die Post-Ausgabe selbst. |
 | **Slack / Teams** | ⛔ verworfen zugunsten E-Mail | — |
 | **Claude Cowork** | ⛔ getestet, löst das Problem nicht | Gleiches Upload-Problem wie bei Claude Code (Stand 24.07.2026). |
 
@@ -168,17 +170,18 @@ Chat zugeschickt. Die 2×-tägliche Mail-Prüfung (Routine, Cron
 `0 10,16 * * *` UTC = 12:00/18:00 Uhr MESZ) ist eingerichtet — offen ist
 noch:
 
-1. **Wichtigster offener Punkt (nur noch Schreibseite):** Rafael/Gunnar muss
-   einmalig „Send to Claude Code Web" aus der Design-System-Oberfläche auf
-   claude.ai auslösen, damit ich Schreibzugriff auf das Design-System
-   bekomme — ohne das kann weder ein neues Einzelprojekt für einen Post
-   angelegt noch etwas in die gemeinsame Foto-Bibliothek geschrieben werden
-   (siehe Abschnitt 1). Die Leseseite (Branding/Tokens/Logos) ist seit
-   25.07.2026 durch den lokalen Zip-Snapshot in
-   `.claude/skills/aktionstag-post/design-system/` entschärft (s. o.) — bleibt
-   aber ein statischer Stand, kein Ersatz für die Schreib-Autorisierung.
-   Google Drive ist dagegen endgültig raus (s. o.), da hilft auch keine
-   erneute Prüfung mehr.
+1. **Verbleibender offener Punkt (nur noch Foto-Archivierung, nicht mehr die
+   Post-Ausgabe):** Rafael/Gunnar muss einmalig „Send to Claude Code Web"
+   aus der Design-System-Oberfläche auf claude.ai auslösen, damit ich
+   Schreibzugriff auf das Design-System bekomme — ohne das kann nur das
+   dauerhafte Ablegen der Original-Fotos in der gemeinsamen Foto-Bibliothek
+   nicht passieren (siehe Abschnitt 1). Der Post selbst wird seit 25.07.2026
+   unabhängig davon als Gmail-Entwurf ausgeliefert. Die Leseseite
+   (Branding/Tokens/Logos) ist seit 25.07.2026 durch den lokalen
+   Zip-Snapshot in `.claude/skills/aktionstag-post/design-system/`
+   entschärft (s. o.) — bleibt aber ein statischer Stand, kein Ersatz für
+   die Schreib-Autorisierung. Google Drive ist dagegen endgültig raus
+   (s. o.), da hilft auch keine erneute Prüfung mehr.
 2. **Winterzeit-Umstellung (Sonntag, 25.10.2026, 3:00 → 2:00 Uhr):** Der
    Cron `0 10,16 * * *` (UTC) läuft ab diesem Zeitpunkt real zu 11:00/17:00
    Uhr MEZ statt 12:00/18:00 Uhr — die UTC-Zeit bleibt gleich, nur die
@@ -197,14 +200,15 @@ und „Ergebnisse" (Ausgabe). Seit 24.07.2026 ist Drive für die Ausgabe **kein
 aktives Ziel mehr** (s. Abschnitt 1) — der Ordner bleibt vorerst nur als
 Altlast/Referenz bestehen.
 
-### Ablage — Design-System (aktueller Weg)
+### Ablage — Post-Ausgabe und Foto-Archivierung (aktueller Weg)
 
-**Post/Story selbst:** eigenes, neues Design-Projekt pro Aktionstag
-(`DesignSync create_project`, Name z. B. „Aktionstag <Segment> <Datum>
-<Kurztitel>") — getrennt von der gemeinsamen Marken-Bibliothek, damit
-Rafael dort direkt weiterarbeiten kann, ohne die Bibliothek zu verändern.
+**Post/Story selbst:** als Gmail-Entwurf im Postfach `rafael.witte@froach.de`
+(`Gmail create_draft`, Bild als Anhang, Caption im Mailtext) — braucht kein
+Design-System-Schreibrecht mehr, seit der Design-Projekt-pro-Post-Ansatz am
+25.07.2026 verworfen wurde (s. Abschnitt 1).
 
-**Fotos:** Nach Rafaels „Freigabe" (per Chat, nicht per Kommentar) werden
+**Fotos (optionale, nachgelagerte Archivierung):** Nach Rafaels „Freigabe"
+(per Chat, nicht per Kommentar) werden
 das/die eingesendete(n) Foto(s) **und** jedes vom Partner mitgeschickte
 Foto in die Foto-Bibliothek des **gemeinsamen** Claude-Design-Projekts
 „relax & froach Design System" (`044c8b4b-076a-4543-930c-a3642c12b3fe`)

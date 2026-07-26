@@ -136,62 +136,64 @@ Google-Drive-Connectors, falls ein Ordner-Picker angeboten wird, dort auch
 technisch **nur diese zwei Ordner** auswählen/freigeben — nicht "gesamtes
 Drive" autorisieren. Verhalten *und* Berechtigung sollten beide eng sein.
 
-**Freigabe — im Design-System, durch Rafael, per Chat-Stichwort.** (Stand
-24.07.2026 — ersetzt den vorherigen Drive-Kommentar-Ansatz.)
-Der Gmail-Connector kann laut eigener Beschreibung nur Entwürfe anlegen,
-Threads zusammenfassen und das Postfach durchsuchen — **kein tatsächliches
-Versenden**. Google Drive wiederum kann von mir aus technisch **keine
-Bild-Assets entgegennehmen** (`create_file` verlangt den kompletten Inhalt
-inline als Text im Werkzeugaufruf — dafür sind Bilddateien immer zu groß,
-das ist kein Übungs-, sondern ein Architekturproblem). Beides ausführlich
-getestet am 23.07.2026, siehe Git-Historie dieser Datei.
+**Ausgabeweg — als Gmail-Entwurf (Stand 25.07.2026, ersetzt den
+Design-Projekt-pro-Post-Ansatz).** Google Drive kann von mir aus technisch
+**keine Bild-Assets entgegennehmen** (`create_file` verlangt den kompletten
+Inhalt inline als Text im Werkzeugaufruf, keinen Datei-Pfad-Parameter, keinen
+Chunk-/Resumable-Upload — dafür sind Bilddateien immer zu groß, das ist kein
+Übungs-, sondern ein Architekturproblem). Ausführlich getestet am 23./24.07.2026,
+siehe Git-Historie dieser Datei. Der zunächst geplante Weg über ein **neues
+Design-Projekt pro Post** (`DesignSync create_project`) wurde am 25.07.2026
+verworfen, weil er bei **jedem einzelnen Lauf** die gleiche blockierte
+interaktive Autorisierung gebraucht hätte (s. u.) — das machte den ganzen
+Workflow von einem einmaligen manuellen Klick abhängig, der nie zuverlässig
+vorher erledigt war.
 
-**Update 24.07.2026:** Erneut geprüft — der Google-Drive-Connector bietet
-weiterhin nur `base64Content`/`textContent`, keinen Datei-Pfad-Parameter und
-keinen Chunk-/Resumable-Upload. Google Drive scheidet damit endgültig als
-Ablageort für fertige Bild-Assets aus.
+**Neue, einfachere Lösung:** Der Gmail-Connector kann **Entwürfe anlegen**
+(`create_draft`) — das ist bereits autorisiert, für genau dieses Postfach.
+Das fertige Bild (PNG) + der Caption-Text (siehe Schritt 5.4) werden daher
+als **Gmail-Entwurf im selben Postfach** (`rafael.witte@froach.de`)
+abgelegt — Betreff z. B. „Entwurf Aktionstag <Segment> <Datum> <Kurztitel>",
+Bild als Anhang, Caption im Mailtext. Rafael findet den Entwurf in seinem
+eigenen Drafts-Ordner, sieht Bild und Text direkt in Gmail und kann ihn dort
+manuell weiterverwenden (z. B. selbst versenden, herunterladen, in Instagram
+hochladen). Das braucht **keine** Design-System-Schreibrechte mehr — der
+Gmail-Entwurf ist der komplette Ausgabeweg für den Post selbst.
 
-**Neue Aufteilung (siehe auch Punkt „Was wohin" unten):**
-- **Fotos (Original-Einsendung + alles vom Partner)** → weiterhin in die
-  Foto-Bibliothek **dieses** Design-System-Projekts
-  (`044c8b4b-076a-4543-930c-a3642c12b3fe`), wie in Schritt 6 beschrieben.
-- **Der fertige Post/die Story selbst** → **nicht** in dieses gemeinsame
-  Design-System-Projekt (das ist die geteilte Marken-Bibliothek, kein
-  Ablageort für einzelne Postings). Stattdessen legt `DesignSync
-  create_project` ein **eigenes, neues Design-Projekt** für genau diesen
-  Aktionstag-Post an — dort liegt der Entwurf, dort kann Rafael ihn direkt
-  in der Claude-Design-Oberfläche weiterbearbeiten, und dort gibt er auch
-  sein Go.
+**Was dadurch NICHT verändert wird:** Das dauerhafte Ablegen der
+**Original-Fotos** in der gemeinsamen Foto-Bibliothek des
+Design-System-Projekts (Schritt 6.3) ist ein **Schreibzugriff auf das
+Design-System**, kein Gmail-Vorgang — dafür bleibt die Blockade unten
+bestehen.
 
-**⚠ Bekannte Blockade beim Schreiben:** `DesignSync write_files` verlangt
-eine interaktive Autorisierung (`/design-login`), die eine im Hintergrund
-laufende Sitzung/Routine nicht selbst auslösen kann. Rafael/Gunnar muss
-einmalig in der Design-System-Oberfläche auf claude.ai eine Funktion wie
-„Send to Claude Code Web" nutzen, um einer Sitzung Schreibzugriff zu geben.
-Bis das erledigt ist, bleibt auch dieser Weg blockiert — dann bitte
-transparent melden statt einen Umweg über den Chat zu erzwingen.
+**⚠ Bekannte Blockade — nur noch für das Archivieren der Original-Fotos:**
+`DesignSync write_files` verlangt eine interaktive Autorisierung
+(`/design-login`), die eine im Hintergrund laufende Sitzung/Routine nicht
+selbst auslösen kann. Rafael/Gunnar muss einmalig in der
+Design-System-Oberfläche auf claude.ai die Funktion „Send to Claude Code Web"
+nutzen, um einer Sitzung Schreibzugriff zu geben. Bis das erledigt ist: den
+Gmail-Entwurf trotzdem wie gewohnt anlegen (das funktioniert bereits), aber
+das Archivieren der Original-Fotos (Schritt 6.3) transparent als offen
+melden, statt es zu erzwingen oder wegzulassen.
 
-1. Sobald Schreibzugriff besteht: per `DesignSync create_project` ein
-   **neues, eigenständiges Projekt** für diesen Aktionstag-Post anlegen
-   (Name z. B. „Aktionstag <Segment> <Datum> <Kurztitel>"), dort Entwurf
-   (PNG + Caption-Textdatei) per `write_files` mit `localPath` ablegen.
-   Dieses neue Projekt ist Rafaels Arbeitsfläche — er kann es dort direkt
-   in der Claude-Design-Oberfläche weiterbearbeiten, es bleibt getrennt
-   von der gemeinsamen Marken-Bibliothek.
-2. **Freigabe-Signal:** Da das Design-System-Werkzeug (anders als Google
-   Drive) keine Kommentare zum Auslesen anbietet, gibt Rafael sein Go
-   stattdessen **per Chat-Nachricht** in der jeweils aktiven Sitzung:
-   - **„Freigabe"** (bzw. „Design Freigabe") → eindeutiges Go. Danach
-     Schritt 6 ausführen (nur die Fotos ins gemeinsame Design-System
-     übernehmen — der Post selbst bleibt im neuen Einzelprojekt aus
-     Schritt 1, nicht zusätzlich woanders ablegen).
-   - **„Anpassung" + was genau** → kein Go, stattdessen gemeinsam in genau
-     diesem Chat besprechen, was zu ändern ist, und das neue Projekt
-     entsprechend aktualisieren.
-   - Nur „Anpassung" ohne Details → aktiv nachfragen, was konkret nicht
-     passt, nicht raten.
-3. Rafael gibt das Go — nicht Gunnar. Ohne „Freigabe": nichts als final
-   markieren, nichts an Dritte weitergeben.
+**Freigabe-Signal für das Archivieren:** Rafael (nicht Gunnar) gibt sein Go
+für Schritt 6.3 per Chat-Nachricht in der jeweils aktiven Sitzung:
+- **„Freigabe"** (bzw. „Design Freigabe") → eindeutiges Go, danach Schritt 6.3
+  ausführen (sobald Schreibzugriff besteht).
+- **„Anpassung" + was genau** → kein Go, stattdessen besprechen und einen
+  neuen Gmail-Entwurf mit den Änderungen anlegen.
+- Nur „Anpassung" ohne Details → aktiv nachfragen, was konkret nicht passt.
+
+**Kontext klein halten.** Nach jedem abgeschlossenen Lauf (Entwurf angelegt,
+ggf. Freigabe verarbeitet) die Session/Chat **zurücksetzen** (`/clear` bzw.
+neue Sitzung), statt Bilder und Verläufe über viele Aktionstage hinweg in
+einer einzigen, immer länger werdenden Konversation anzusammeln — das treibt
+sowohl die Kosten pro Antwort als auch die Wahrscheinlichkeit ungewollter
+Kontext-Kompression nach oben. Das ist unkritisch: alle verbindlichen Regeln
+(Branding, Filter, Datenschutz-Checks) stehen in diesem Repo
+(`SKILL.md`, `README.md`, `design-system/`), nicht im Chat-Verlauf — jeder
+Lauf liest sie frisch aus den Dateien, unabhängig davon, wie kurz die
+Konversation gerade ist.
 
 ## 1. Pflichtangaben abfragen
 
@@ -329,12 +331,14 @@ nicht optional.
 ## 6. Ausgabe — niemals automatisch posten
 
 1. Fertiges Bild **zusammen mit dem Caption-Text-Vorschlag** (siehe Schritt
-   5.4, immer beigefügt) in einem **neuen, eigenen Design-Projekt** ablegen
-   (`DesignSync create_project` + `write_files` mit `localPath`, siehe
-   Schritt 0a — solange die dortige Autorisierung fehlt: Blockade
-   transparent melden, nicht über den Chat ausliefern).
-2. Warten auf Rafaels **„Freigabe"** per Chat-Nachricht (siehe Schritt 0a).
-   Kein Finalisieren ohne dieses Wort.
+   5.4, immer beigefügt) als **Gmail-Entwurf** im Postfach
+   `rafael.witte@froach.de` ablegen (`Gmail create_draft`, Bild als Anhang,
+   Betreff „Entwurf Aktionstag <Segment> <Datum> <Kurztitel>", Caption im
+   Mailtext — siehe Schritt 0a „Ausgabeweg"). Das ist bereits autorisiert und
+   braucht keine Design-System-Schreibrechte.
+2. Warten auf Rafaels **„Freigabe"** per Chat-Nachricht (siehe Schritt 0a) —
+   diese betrifft nur noch Schritt 6.3 (Foto-Archivierung), nicht den
+   Gmail-Entwurf selbst, der bereits in Schritt 1 fertig abgelegt ist.
 3. **Nach „Freigabe" — immer, ausnahmslos, beide Kategorien:**
    - **Das/die eingesendete(n) Foto(s)** dieses Aktionstages (nicht nur das
      im Post verwendete) UND
@@ -354,7 +358,9 @@ nicht optional.
    Datenschutz-Logik wie beim Ergebnis-Bild gilt hier ebenso, weil die
    Foto-Bibliothek dauerhaft und projektübergreifend sichtbar ist.
 4. Eine tatsächliche Instagram-Veröffentlichung ist **nicht** Teil dieses
-   Skills — die Ablage im Design-System ist der letzte Schritt.
+   Skills — der Gmail-Entwurf (Schritt 1) ist die eigentliche Ausgabe; die
+   Foto-Archivierung (Schritt 3) ist ein nachgelagerter, von der
+   Design-System-Autorisierung abhängiger Zusatzschritt.
 
 ## Sprache
 
