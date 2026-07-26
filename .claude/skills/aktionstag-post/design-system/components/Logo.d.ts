@@ -1,7 +1,10 @@
 import * as React from "react";
 
 export interface LogoProps {
-  /** "blue" (default) for light backgrounds, "white" for dark/colored */
+  /** "relax-froach" (default) or the "froachkids" sub-brand lockup */
+  brand?: "relax-froach" | "froachkids";
+  /** "blue" (default) for light backgrounds, "white" for dark/colored.
+   *  Ignored for brand="froachkids" — the multi-color lockup is never recolored. */
   variant?: "blue" | "white";
   /** adds the GESUNDHEITSMANAGEMENT descriptor lockup */
   tagline?: boolean;
@@ -26,8 +29,11 @@ export interface LogoCircleProps {
   assetPath?: string;
 }
 
-/** Full relax & froach wordmark lockup (PNG-backed). */
+/** Full relax & froach wordmark lockup (PNG-backed).
+ *  Pass brand="froachkids" for the froachkids sub-brand lockup. */
 export function Logo(props: LogoProps): JSX.Element;
+/** froachkids sub-brand lockup — shorthand for <Logo brand="froachkids" />. */
+export function LogoKids(props: Omit<LogoProps, "brand" | "variant" | "tagline">): JSX.Element;
 /** Icon-only hand mark with integrated green leaf. */
 export function LogoMark(props: LogoMarkProps): JSX.Element;
 /** Hand mark inside a solid circle — app/social contexts. */
