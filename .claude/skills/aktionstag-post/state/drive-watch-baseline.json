@@ -1,0 +1,39 @@
+{
+  "_hinweis": "Baseline fuer die Aenderungs-Erkennung im Eingangs-Ordner 'Fotos Aktionstage'. Bei jedem geplanten Lauf: aktuelle Dateiliste je Segment-Unterordner gegen 'knownFileIds' abgleichen. Jede Datei-ID, die NICHT in der Liste steht, ist eine neue/geaenderte Foto-Einsendung -> Pflichtangaben aus zugehoeriger E-Mail (gleiches Segment, zeitlich nahe) zuordnen bzw. nachfragen, danach verarbeiten und die ID hier ergaenzen. Nach jeder Verarbeitung diese Datei aktualisieren (lastCheckedAt + knownFileIds) und committen, damit der naechste (frische) Lauf den Stand kennt.",
+  "driveFolderRoot": {
+    "name": "Fotos Aktionstage",
+    "folderId": "1d3wvlAhieickno0yLJ1qkQGDiIdPUvcY"
+  },
+  "lastCheckedAt": "2026-08-01T15:28:58Z",
+  "segments": {
+    "Schule": {
+      "folderId": "165PTUR1NkHBWMs5tfFa16HshmaQRDjsv",
+      "knownFileIds": [
+        "18aPfbH88oDpxqC_-_CqOz1_Sq60Gm3Id",
+        "1pLo90s8SV9n7SeZHychWbPXSE9AOpwXN",
+        "14yn7KNTzl-BNKJahmiiQCqasPpMsiiM7",
+        "15Eukg0WYVK1ngcaHAS_R9T4RloK6ggW2",
+        "18D-r_Llp305O5dO1lSI1Qhynagkt9ZRQ",
+        "10-Ur_GUD55YutCDuI8U16KSoB5kW1Nuo",
+        "1_st2EzVtedycLQKk38vzdacFhF-9YlQR",
+        "1E5GzxDNFiHEWjH8xc2-PkTSqLaIkfu1E",
+        "1_fXbRsysygNGOcDJ5eGPyrOL-PvcA-4B",
+        "19JC9nat4kRiHeYNFysIicT-aVGEip9cy"
+      ]
+    },
+    "Kita": {
+      "folderId": "1VnTZd7Hvidfkbj6mKvi7P5Kq6-vU6cCF",
+      "knownFileIds": [
+        "1q48cuoDharMrrlqs-vM3u_XmmcitA-IG"
+      ]
+    },
+    "Pflege": {
+      "folderId": "1KVoQKLvF-7iZ0k451VTvbxtJJvnVbruB",
+      "knownFileIds": []
+    },
+    "Projektmodul": {
+      "folderId": "1TD6tKEfKp7sxzfTdlQefQgoRuyG_xao0",
+      "knownFileIds": []
+    }
+  }
+}

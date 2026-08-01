@@ -124,6 +124,33 @@ Lose Dateien, die direkt im Überordner „Fotos für Insta" liegen (nicht in
 einem der beiden Unterordner bzw. deren Segment-Unterordnern), gehören
 **nicht** zu diesem Workflow und werden **ignoriert**.
 
+**Gmail hat keinen Anhang-Download — Drive-Ordner „Fotos Aktionstage" ist
+deshalb der verlässliche Foto-Kanal (Stand 01.08.2026).** Der
+Gmail-Connector kann Anhänge nur benennen (Dateiname, MIME-Typ), aber die
+Bild-Bytes selbst nicht herunterladen — ausführlich geprüft, es gibt kein
+`get_attachment`/`download_attachment` o. ä. in dieser Umgebung. Google
+Drive dagegen liefert Bild-Bytes zuverlässig (`download_file_content`).
+Praktische Konsequenz: Die E-Mail liefert die Pflichtangaben (Text —
+Segment, Anlass, Datum, Ort, Sponsor erkennbar aus dem Mailtext), das
+tatsächliche Foto kommt separat über den Eingangs-Ordner „Fotos
+Aktionstage" (Segment-Unterordner). Beide werden anhand von Segment +
+zeitlicher Nähe (E-Mail-Datum ≈ Datei-Upload-Datum) einander zugeordnet.
+
+**Ordner-Überwachung bei jedem geplanten Lauf (ergänzt 01.08.2026, auf
+Wunsch von Gunnar: „merke auch, wenn sich was im Ordner ändert").**
+Zusätzlich zur E-Mail-Prüfung bei jedem 2×-täglichen Lauf: aktuelle
+Dateiliste der vier Segment-Unterordner unter „Fotos Aktionstage" abrufen
+und mit der gespeicherten Baseline abgleichen —
+[`state/drive-watch-baseline.json`](state/drive-watch-baseline.json)
+(`knownFileIds` je Segment). Jede Datei-ID, die dort **nicht** auftaucht,
+ist eine neue oder geänderte Foto-Einsendung und wird wie ein frischer
+Eingang behandelt (Schritt 1 ff.). Nach der Verarbeitung: die neue
+Datei-ID in die Baseline aufnehmen, `lastCheckedAt` aktualisieren und die
+Datei committen/pushen — sonst hält der nächste (frische) Lauf dieselbe
+Datei fälschlich für neu. Diese Baseline-Datei ist die einzige Form von
+Gedächtnis zwischen den Läufen; ohne den Commit „vergisst" der Workflow
+jede erkannte Änderung sofort wieder.
+
 Harte Regel: **Kein** Auflisten, Lesen, Schreiben oder Suchen außerhalb
 dieser zwei Unterordner (inkl. ihrer vier Segment-Unterordner) — kein
 Durchsuchen des restlichen Drives, keine Stichwortsuche über den gesamten
